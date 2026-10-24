@@ -171,21 +171,13 @@ export const App: React.FC = () => {
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/10 blur-3xl pointer-events-none rounded-full" />
 
           <div className="relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C59B37]/10 border border-[#C59B37]/30 text-[#8C6A1E] dark:text-[#E5C17D] text-xs font-bold tracking-wide uppercase mb-4">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Universal Ancient Canon, Academic & Multilingual Synthesis</span>
-            </div>
-
             <h1 className="font-serif text-3xl sm:text-5xl font-black text-gray-900 dark:text-white leading-tight tracking-tight">
               Master Any Text in Minutes. <br />
               <span className="gold-text-gradient">From Ancient Greek to Modern Treatises.</span>
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed font-light">
-              Engineered to outclass standard 15-minute apps. Synthesize non-fiction, 
-              <strong> ancient classical manuscripts</strong> (Greek, Latin, Classical Chinese, Arabic, Sanskrit), and 
-              <strong> dense academic treatises</strong> with bilingual philology, mathematical frameworks, and the definitive 
-              <strong> 40-Minute Shortform Masterclass</strong> in any language.
+              Synthesize non-fiction, ancient classical manuscripts, and dense academic treatises with bilingual philology, mathematical frameworks, and a multi-tier depth architecture in any language.
             </p>
 
             {/* Quick Metrics Bar */}
@@ -275,11 +267,11 @@ export const App: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-6 text-[11px] text-gray-600 dark:text-gray-500">
-            <span>Apple Design Award Architecture</span>
-            <span>App Store Guideline 5.2.2 Compliant</span>
+          <div className="flex items-center gap-6 text-[11px] text-gray-500 dark:text-gray-400">
+            <span>Critical Study & Synthesis</span>
+            <span>App Store Guideline 5.2.2</span>
             <span>Ancient Epigraphy Canon</span>
-            <span>API Docs</span>
+            <span>API Documentation</span>
           </div>
 
           <div className="text-right text-[11px] text-gray-500">

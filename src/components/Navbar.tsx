@@ -80,21 +80,13 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Brand Logo & Title */}
             <div className="flex items-center gap-3 cursor-pointer select-none" onClick={() => onSelectCategory('All Syntheses')}>
-              <div className="w-11 h-11 rounded-2xl bg-white dark:bg-[#151824] p-1.5 border border-[#C59B37]/40 shadow-sm flex items-center justify-center overflow-hidden">
-                <img src="/AppIcon.png" alt="MindSprint" className="w-full h-full object-contain rounded-xl drop-shadow" />
+              <div className="w-10 h-10 rounded-2xl bg-white dark:bg-[#151824] p-1 border border-black/[0.08] dark:border-white/10 shadow-xs flex items-center justify-center overflow-hidden">
+                <img src="/AppIcon.png" alt="MindSprint" className="w-full h-full object-contain rounded-xl drop-shadow-xs" />
               </div>
               <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-brand text-xl font-bold tracking-widest text-gray-900 dark:text-white">
-                    MIND<span className="gold-text-gradient font-black">SPRINT</span>
-                  </span>
-                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#C59B37]/10 text-[#C59B37] border border-[#C59B37]/30">
-                    AWARD EDITION
-                  </span>
-                </div>
-                <p className="text-[11px] text-gray-500 dark:text-gray-400 tracking-wide hidden lg:block">
-                  Universal Non-Fiction, Ancient Canon & Academic Intelligence
-                </p>
+                <span className="font-brand text-xl font-bold tracking-widest text-gray-900 dark:text-white">
+                  MIND<span className="gold-text-gradient font-black">SPRINT</span>
+                </span>
               </div>
             </div>
 
