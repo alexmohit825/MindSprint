@@ -1119,7 +1119,7 @@ struct SectionBox<Content: View>: View {
 // MARK: - Synthesize Sheet View
 struct SynthesizeSheetView: View {
     let onBookCreated: (BookSummary) -> Void
-    @Environment(\\.dismiss) private var dismiss
+    @Environment(\.dismiss) private var dismiss
     
     @State private var bookTitle: String = ""
     @State private var bookAuthor: String = ""
@@ -1224,7 +1224,7 @@ struct SynthesizeSheetView: View {
                                     .font(.system(size: 10, weight: .bold))
                                     .foregroundColor(.gray)
                                 Picker("Category", selection: $selectedGenre) {
-                                    ForEach(genres, id: \\.self) { g in
+                                    ForEach(genres, id: \.self) { g in
                                         Text(g).tag(g)
                                     }
                                 }
@@ -1257,7 +1257,7 @@ struct SynthesizeSheetView: View {
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 8) {
-                                    ForEach(quickSuggestions, id: \\.0) { item in
+                                    ForEach(quickSuggestions, id: \.0) { item in
                                         Button(action: {
                                             bookTitle = item.0
                                             bookAuthor = item.1
@@ -1302,7 +1302,7 @@ struct SynthesizeSheetView: View {
                                     var request = URLRequest(url: endpoint)
                                     request.httpMethod = "POST"
                                     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                                    request.timeoutInterval = 30
+                                    request.timeoutInterval = 75
                                     
                                     let payload: [String: Any] = [
                                         "title": bookTitle.trimmingCharacters(in: .whitespaces),
