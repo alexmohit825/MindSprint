@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Sparkles, Compass, Bookmark, Volume2, Scroll, GraduationCap, Globe } from 'lucide-react';
+import { Search, Sparkles, Scroll, GraduationCap, ArrowLeft, ArrowRight, Sun, Moon } from 'lucide-react';
 
 interface NavbarProps {
   searchQuery: string;
@@ -7,6 +7,12 @@ interface NavbarProps {
   onOpenSynthesizer: () => void;
   selectedCategory: string;
   onSelectCategory: (cat: string) => void;
+  canGoBack: boolean;
+  canGoForward: boolean;
+  onNavigateBack: () => void;
+  onNavigateForward: () => void;
+  isDarkMode: boolean;
+  onToggleTheme: () => void;
 }
 
 const CATEGORIES = [
@@ -28,27 +34,70 @@ export const Navbar: React.FC<NavbarProps> = ({
   onSearchChange,
   onOpenSynthesizer,
   selectedCategory,
-  onSelectCategory
+  onSelectCategory,
+  canGoBack,
+  canGoForward,
+  onNavigateBack,
+  onNavigateForward,
+  isDarkMode,
+  onToggleTheme
 }) => {
   return (
-    <header className="sticky top-0 z-40 w-full glass-panel border-b border-white/5 bg-[#08090E]/85">
+    <header className="sticky top-0 z-40 w-full glass-panel border-b border-black/[0.06] dark:border-white/5 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 gap-4">
+        <div className="flex items-center justify-between h-20 gap-3 sm:gap-4">
           
-          {/* Brand Identity */}
-          <div className="flex items-center gap-3.5 cursor-pointer" onClick={() => onSelectCategory('All Syntheses')}>
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#1F2230] to-[#0D0E15] p-2 border border-[#E5C17D]/30 shadow-lg flex items-center justify-center">
-              <img src="/logo.svg" alt="MindSprint" className="w-full h-full object-contain drop-shadow" />
+          {/* Left Group: Back / Forward Navigation Controls & Brand */}
+          <div className="flex items-center gap-3">
+            
+            {/* Apple Navigation History Arrows */}
+            <div className="flex items-center gap-1 p-1 bg-black/[0.04] dark:bg-white/5 rounded-xl border border-black/[0.05] dark:border-white/10">
+              <button
+                onClick={onNavigateBack}
+                disabled={!canGoBack}
+                className={`p-1.5 rounded-lg transition ${
+                  canGoBack
+                    ? 'text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer'
+                    : 'text-gray-300 dark:text-gray-600 cursor-not-allowed opacity-50'
+                }`}
+                title="Go Back (History)"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={onNavigateForward}
+                disabled={!canGoForward}
+                className={`p-1.5 rounded-lg transition ${
+                  canGoForward
+                    ? 'text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer'
+                    : 'text-gray-300 dark:text-gray-600 cursor-not-allowed opacity-50'
+                }`}
+                title="Go Forward (History)"
+              >
+                <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-brand text-xl font-bold tracking-widest text-white">MIND<span className="gold-text-gradient font-black">SPRINT</span></span>
-                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#E5C17D]/10 text-[#E5C17D] border border-[#E5C17D]/30">
-                  ENTERPRISE
-                </span>
+
+            {/* Brand Logo & Title */}
+            <div className="flex items-center gap-3 cursor-pointer select-none" onClick={() => onSelectCategory('All Syntheses')}>
+              <div className="w-11 h-11 rounded-2xl bg-white dark:bg-[#151824] p-1.5 border border-[#C59B37]/40 shadow-sm flex items-center justify-center overflow-hidden">
+                <img src="/AppIcon.png" alt="MindSprint" className="w-full h-full object-contain rounded-xl drop-shadow" />
               </div>
-              <p className="text-[11px] text-gray-400 tracking-wide hidden sm:block">Universal Non-Fiction, Ancient Canon & Academic Intelligence</p>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-brand text-xl font-bold tracking-widest text-gray-900 dark:text-white">
+                    MIND<span className="gold-text-gradient font-black">SPRINT</span>
+                  </span>
+                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#C59B37]/10 text-[#C59B37] border border-[#C59B37]/30">
+                    AWARD EDITION
+                  </span>
+                </div>
+                <p className="text-[11px] text-gray-500 dark:text-gray-400 tracking-wide hidden lg:block">
+                  Universal Non-Fiction, Ancient Canon & Academic Intelligence
+                </p>
+              </div>
             </div>
+
           </div>
 
           {/* Search Bar */}
@@ -60,20 +109,32 @@ export const Navbar: React.FC<NavbarProps> = ({
                 placeholder="Search any title, author, Greek/Latin classic, or treatise..."
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
-                className="w-full bg-[#121520] border border-white/10 rounded-xl pl-10 pr-4 py-2 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-[#E5C17D]/60 focus:ring-1 focus:ring-[#E5C17D]/40 transition"
+                className="w-full bg-white dark:bg-[#121520] border border-black/10 dark:border-white/10 rounded-xl pl-10 pr-4 py-2 text-sm text-gray-900 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-[#C59B37] focus:ring-1 focus:ring-[#C59B37] transition shadow-xs"
               />
             </div>
           </div>
 
-          {/* Action Trigger: Infinite Synthesis */}
-          <div className="flex items-center gap-3">
+          {/* Action Trigger & Theme Switcher */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            
+            {/* Theme Toggle (Alabaster Day vs Obsidian Night) */}
+            <button
+              onClick={onToggleTheme}
+              className="p-2 rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition cursor-pointer shadow-xs"
+              title={isDarkMode ? 'Switch to Apple Alabaster (Brighter)' : 'Switch to Obsidian Night'}
+            >
+              {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-gray-600" />}
+            </button>
+
+            {/* Synthesize Button */}
             <button
               onClick={onOpenSynthesizer}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#E5C17D] via-[#DFB265] to-[#B3873B] text-[#090A0F] font-semibold text-xs sm:text-sm tracking-wide shadow-lg shadow-[#E5C17D]/20 hover:brightness-110 active:scale-95 transition cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#C59B37] via-[#DFC074] to-[#B88B35] text-[#090A0F] font-bold text-xs sm:text-sm tracking-wide shadow-md shadow-[#C59B37]/20 hover:brightness-105 active:scale-95 transition cursor-pointer"
             >
               <Sparkles className="w-4 h-4 text-[#090A0F]" />
-              <span className="font-bold">Synthesize Any Work</span>
+              <span className="font-bold">Synthesize</span>
             </button>
+
           </div>
 
         </div>
@@ -87,25 +148,25 @@ export const Navbar: React.FC<NavbarProps> = ({
               placeholder="Search library, Greek/Latin classics, or treatises..."
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full bg-[#121520] border border-white/10 rounded-xl pl-10 pr-4 py-2 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-[#E5C17D]/60"
+              className="w-full bg-white dark:bg-[#121520] border border-black/10 dark:border-white/10 rounded-xl pl-10 pr-4 py-2 text-sm text-gray-900 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:border-[#C59B37]"
             />
           </div>
         </div>
 
         {/* Horizontal Category Pill Scroll */}
-        <div className="flex items-center gap-2 overflow-x-auto py-2.5 no-scrollbar text-xs border-t border-white/5">
+        <div className="flex items-center gap-2 overflow-x-auto py-2.5 no-scrollbar text-xs border-t border-black/[0.05] dark:border-white/5">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => onSelectCategory(cat)}
               className={`whitespace-nowrap px-3.5 py-1.5 rounded-lg font-medium transition cursor-pointer flex items-center gap-1.5 ${
                 selectedCategory === cat
-                  ? 'bg-[#E5C17D]/20 text-[#E5C17D] border border-[#E5C17D]/40 shadow-sm'
-                  : 'text-gray-400 hover:text-gray-200 hover:bg-white/5 border border-transparent'
+                  ? 'bg-[#C59B37]/15 text-[#8C6A1E] dark:text-[#E5C17D] border border-[#C59B37]/40 shadow-xs font-semibold'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-black/5 dark:hover:bg-white/5 border border-transparent'
               }`}
             >
-              {cat === 'Ancient Texts & Classics' && <Scroll className="w-3.5 h-3.5 text-amber-400" />}
-              {cat === 'Academic & Scientific Treatises' && <GraduationCap className="w-3.5 h-3.5 text-sky-400" />}
+              {cat === 'Ancient Texts & Classics' && <Scroll className="w-3.5 h-3.5 text-amber-500" />}
+              {cat === 'Academic & Scientific Treatises' && <GraduationCap className="w-3.5 h-3.5 text-sky-500" />}
               <span>{cat}</span>
             </button>
           ))}
