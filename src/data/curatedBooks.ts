@@ -198,7 +198,7 @@ export const CURATED_BOOKS: BookSummary[] = [
         authorBlindspots: 'Atomic Habits assumes an individual has full sovereignty over their environment and schedule, largely ignoring systemic socioeconomic constraints and neurological variations (such as severe ADHD).',
         counterArguments: [
           {
-            opposingThinker: 'Peter Thiel (Zero to One)',
+            opposingThinker: "Clayton Christensen (The Innovator's Dilemma)",
             counterpoint: 'Incremental 1% compounding works for personal routines, but in technology and enterprise strategy, compounding 1% on the wrong fundamental premise leads to efficient obsolescence. You need step-function leaps.'
           },
           {
@@ -390,131 +390,138 @@ export const CURATED_BOOKS: BookSummary[] = [
     ]
   },
   {
-    id: 'zero-to-one',
-    title: 'Zero to One',
-    subtitle: 'Notes on Startups, or How to Build the Future',
-    author: 'Peter Thiel with Blake Masters',
-    year: 2014,
-    category: 'Venture & Strategy',
-    rating: 4.85,
-    readTime: { spark: '1 min', core: '13 min', masterclass: '35 min' },
+    id: 'good-to-great',
+    title: 'Good to Great',
+    subtitle: 'Why Some Companies Make the Leap... and Others Don\'t',
+    author: 'Jim Collins',
+    year: 2001,
+    category: 'Leadership & Strategy',
+    rating: 4.88,
+    readTime: { spark: '1 min', core: '14 min', masterclass: '38 min' },
     cover: {
-      bgGradient: 'from-[#1A1215] via-[#0E0B0D] to-[#070506]',
-      accentColor: '#EC4899',
-      motif: 'Singular Vertical Progression',
-      tagline: 'Competition is for losers. Aim for monopoly.',
-      coverUrl: 'https://covers.openlibrary.org/b/id/9002334-L.jpg'
+      bgGradient: 'from-[#1A1829] via-[#0E1018] to-[#08090D]',
+      accentColor: '#C59B37',
+      motif: 'The Flywheel Cumulative Momentum',
+      tagline: 'Good is the enemy of great.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/14389659-L.jpg'
     },
     spark: {
-      executiveThesis: 'Every moment in business happens only once. The next Bill Gates will not build an operating system. Doing what someone else already knows how to do takes the world from 1 to n (horizontal globalization). Creating something new takes the world from 0 to 1 (vertical technology). To build enduring value, a company must achieve a creative monopoly by solving a unique problem in a small market and scaling out.',
-      bottomLine: 'Do not compete in crowded markets. Find a hidden secret, dominate a small niche, and build proprietary technology 10x better than existing alternatives.',
+      executiveThesis: 'Greatness is not a matter of circumstance or luck; it is a conscious discipline. Transforming an organization from mediocre to world-class requires disciplined people (Level 5 Leadership, First Who Then What), disciplined thought (Confronting Brutal Facts, The Hedgehog Concept), and disciplined action (Culture of Discipline, The Flywheel Effect).',
+      bottomLine: 'Good is the enemy of great. Eliminate the superficial trappings of celebrity leadership; build quiet, relentless momentum through cumulative flywheel turns aligned with your core Hedgehog Concept.',
       threeGoldenRules: [
-        'The Contrarian Question: "What important truth do very few people agree with you on?"',
-        'Monopoly is the Condition of Success: Perfect competition destroys economic profits; creative monopolies drive all durable technological progress.',
-        'The Power Law: One investment in a portfolio will outperform the sum of all others combined; focus ruthlessly on extremes.'
+        'Level 5 Leadership: Cultivate personal humility combined with indomitable, ferocious professional will.',
+        'First Who, Then What: Get the right people on the bus and wrong people off before determining where to steer the vehicle.',
+        'The Stockdale Paradox: Retain unwavering faith that you will prevail in the end, while simultaneously confronting the most brutal realities of your present situation.'
       ],
       coreMentalModel: {
-        name: 'The 4 Engines of Creative Monopoly',
-        description: '1. Proprietary Technology (10x better). 2. Network Effects (inherent value scales with users). 3. Economies of Scale (high fixed cost, zero marginal cost). 4. Branding (deep emotional and aesthetic moats).',
-        diagramType: 'matrix'
+        name: 'The Hedgehog Concept & The Flywheel',
+        description: 'Success compounds at the intersection of: 1. What you can be the best in the world at. 2. What drives your economic engine. 3. What you are deeply passionate about. Driven continuously by the Flywheel momentum.',
+        diagramType: 'flywheel'
       }
     },
     core: {
       chapters: [
         {
           number: 1,
-          title: 'The Challenge of the Future: 0 to 1 vs 1 to n',
-          breakdown: 'Horizontal progress copies things that work—going from 1 to n. Vertical progress does new things—going from 0 to 1. Technology, not globalization, is the ultimate driver of human advancement.',
-          keyInsight: 'If you expect the future to be built simply on spreading existing technology worldwide, you will get resource exhaustion and ecological collapse without technological breakthrough.',
-          anecdote: 'China is the quintessential 1 to n power: brilliantly replicating Western infrastructure at unprecedented scale.'
+          title: 'Good is the Enemy of Great & Level 5 Leadership',
+          breakdown: 'Most organizations fail to achieve greatness simply because they settle for acceptable mediocrity. The leaders who engineered sustained 15-year market outperformance were not charismatic celebrities; they were self-effacing, quiet, and possessed an iron will focused on the mission.',
+          keyInsight: 'Level 5 leaders channel their ambition into the institution rather than personal ego; when things go well, they look out the window to credit others; when things fail, they look in the mirror.',
+          anecdote: 'Darwin Smith, CEO of Kimberly-Clark, who sold off the company\'s historic mills to beat Procter & Gamble despite Wall Street skepticism.'
         },
         {
           number: 2,
-          title: 'All Happy Companies Are Different: Monopoly Profits',
-          breakdown: 'Under perfect competition, no firm makes economic profit. Monopolies lie to protect themselves (pretending they are in fierce competition), while competitive firms lie (claiming they are unique).',
-          keyInsight: 'Google owns 68% of search advertising, but frames itself as a "technology player" in the global advertising market to avoid antitrust scrutiny.',
-          anecdote: 'US airlines in 2012 created hundreds of billions in economic value carrying millions of passengers, but made only 37 cents per passenger trip; Google made 21% pure net profit.'
+          title: 'First Who... Then What',
+          breakdown: 'Great organizations start not with a brilliant vision or roadmap, but by assembling the right people. If you begin with "who," you can adapt to any shifting economic landscape.',
+          keyInsight: 'The right people do not need to be tightly managed or incentivized; they are intrinsically driven to produce world-class work.',
+          anecdote: 'Dick Cooley at Wells Fargo recruited the sharpest executive minds available during financial deregulation without knowing yet what roles they would assume.'
         },
         {
           number: 3,
-          title: 'The Mechanics of a Monopoly: Start Small and Monopolize',
-          breakdown: 'Every startup must start with a small, tightly bounded market where you can quickly capture 80% market share. It is easier to dominate a small market than a large one.',
-          keyInsight: 'Avoid large markets with vague definitions ("If we capture 1% of the $100B Chinese pet food market"); 1% of a huge market means you will be crushed by competitors with no moat.',
-          anecdote: 'PayPal did not target "everyone who buys online." They targeted 20,000 eBay PowerSellers who desperately needed instant auction settlements.'
+          title: 'Confront the Brutal Facts (The Stockdale Paradox)',
+          breakdown: 'You must maintain absolute belief that you will prevail, regardless of difficulties, while rigorously facing the cold, unvarnished facts of your current operational reality.',
+          keyInsight: 'False optimism destroys resilience; realistic paranoia coupled with strategic resolve creates enduring survival.',
+          anecdote: 'Admiral Jim Stockdale survived seven years of torture in Vietnam by never confusing the faith in the end with the discipline to face current harsh reality.'
         },
         {
           number: 4,
-          title: 'The Power Law & Secrets',
-          breakdown: 'We live under a power law distribution, but our schools teach normal distributions. Life is not a diversified lottery ticket; focus on what you believe in most deeply.',
-          keyInsight: 'Great companies are founded on secrets: truths about the natural or social world that are important but hidden from plain view.',
-          anecdote: 'Airbnb and Uber were built on secrets hiding in plain sight: people have empty rooms and empty cars, and strangers can be trusted if a reputation system exists.'
+          title: 'The Hedgehog Concept (Simplicity Within the Three Circles)',
+          breakdown: 'The fox knows many things, but the hedgehog knows one big thing. Great companies organize all strategic decisions around the intersection of passion, world-class capability, and unit economic denominator.',
+          keyInsight: 'If you cannot be the best in the world at your core business, that business cannot be the foundation of a great company.',
+          anecdote: 'Walgreens focused obsessively on convenient corner drugstores with high profit-per-customer-visit, vastly outperforming the general market.'
+        },
+        {
+          number: 5,
+          title: 'The Flywheel and the Doom Loop',
+          breakdown: 'No single miracle moment, restructuring, or killer product creates greatness. Greatness is the result of continuous, patient pushes on a giant, heavy flywheel that gradually gains unstoppable momentum.',
+          keyInsight: 'Companies that constantly launch new initiatives, rebrandings, and acquisitions stay trapped in the Doom Loop, never compounding energy.',
+          anecdote: 'Nucor Steel invested steadily in mini-mill technology for two decades until it quietly surpassed US Steel as America\'s top steelmaker.'
         }
       ]
     },
     masterclass: {
       dialecticCritique: {
-        authorBlindspots: 'Thiel’s glorification of monopoly capitalism often glosses over how entrenched monopolies actively suppress innovation, engage in predatory acquisitions, and extract excessive rents from consumers once established.',
+        authorBlindspots: 'Collins\' methodology relied heavily on retrospective historical matching. In subsequent decades, several celebrated "great" companies (such as Circuit City and Fannie Mae) suffered catastrophic collapses or bankruptcy, illustrating that past discipline does not inoculate an enterprise against technological disruption.',
         counterArguments: [
           {
-            opposingThinker: 'Clayton Christensen (The Innovator’s Dilemma)',
-            counterpoint: 'Monopolies inevitably become rigid and vulnerable to disruptive innovation from low-end entrants whom the monopoly chooses to ignore.'
+            opposingThinker: 'Clayton Christensen (The Innovator\'s Dilemma)',
+            counterpoint: 'Listening closely to current profitable customers and focusing on core competence can cause great companies to miss disruptive low-end technologies.'
           },
           {
-            opposingThinker: 'Mariana Mazzucato (The Entrepreneurial State)',
-            counterpoint: 'Most 0 to 1 breakthroughs (the internet, GPS, touchscreens, mRNA) were funded by long-term government research rather than contrarian venture capitalists.'
+            opposingThinker: 'Daniel Kahneman (Thinking, Fast and Slow)',
+            counterpoint: 'Hindsight bias and narrative fallacy cause business researchers to attribute success to management discipline when luck and variance play an enormous role.'
           }
         ]
       },
       authorBiases: [
-        'Silicon Valley Venture Elitism: Assuming only venture-backed software monopolies create meaningful societal value.',
-        'Radical Determinism: Discounting luck and serendipity in favor of deliberate founder omnipotence.'
+        'Survivorship Analysis: Over-indexing on the 11 study companies without fully tracking similarly disciplined firms that failed due to macro shifts.',
+        'Managerial Determinism: Believing executive discipline alone can overcome seismic structural industry decline.'
       ],
       caseStudies: [
         {
-          entity: 'Facebook (Early Campus Dominance)',
-          scenario: 'Instead of opening to the entire web, Mark Zuckerberg limited registration strictly to Harvard students.',
-          outcome: 'Achieved 85% campus penetration in 10 days, creating an impenetrable network effect before expanding to Columbia, Stanford, and Yale.'
+          entity: 'Circuit City vs Best Buy',
+          scenario: 'Circuit City was a primary Good to Great case study, but grew complacent in real estate while Best Buy embraced consumer electronics service (Geek Squad).',
+          outcome: 'Circuit City filed for Chapter 11 bankruptcy in 2008, serving as a cautionary tale of Doom Loop stagnation.'
         },
         {
-          entity: 'CleanTech Crash of 2008–2012',
-          scenario: 'Dozens of solar startups raised billions by promising 15% efficiency improvements in commoditized panels.',
-          outcome: 'Over 40 venture-backed solar companies went bankrupt because they violated all 7 of Thiel’s startup questions, lacking 10x proprietary technology.'
+          entity: 'Kimberly-Clark Transformation',
+          scenario: 'Faced with commoditized paper mills, CEO Darwin Smith sold all mills and pivoted 100% to consumer packaged goods.',
+          outcome: 'Generated 4.1x cumulative stock returns compared to the general market over 25 years.'
         }
       ],
       actionPlaybook: [
         {
           step: 1,
-          action: 'Evaluate the 10x Proprietary Advantage',
-          executionDetail: 'Ask: In what single measurable dimension (speed, cost, precision, convenience) is your product 10 times better than the existing substitute? If it is only 2x better, consumers will not absorb switching costs.'
+          action: 'Audit Your Leadership Window vs Mirror Ratio',
+          executionDetail: 'Review the last three post-mortems in your organization. If leadership credited themselves for successes and blamed external factors for failures, reset accountability standards.'
         },
         {
           step: 2,
-          action: 'Map Your Concentric Beachhead',
-          executionDetail: 'Define a market so small that 500 customers represent 80% market share. Dominate that niche completely before expanding to the next adjacent circle.'
+          action: 'Map Your Hedgehog Three Circles',
+          executionDetail: 'Draw your three circles: (1) Passion, (2) World-Class Competence, (3) Economic Denominator (e.g., profit per customer visit). Eliminate any business line that does not intersect all three.'
         },
         {
           step: 3,
-          action: 'Audit Your Power Law Allocation',
-          executionDetail: 'Audit your current project portfolio. Reallocate 80% of your time, capital, and top talent to the single initiative that has the potential to outperform all others combined.'
+          action: 'Identify the Single Flywheel Push Mechanism',
+          executionDetail: 'Map your operational momentum loop: A leads to B, which enables C, which powers A. Commit to turning this flywheel for 36 months without chasing distraction.'
         }
       ],
       socraticReflection: [
-        'What important truth do you hold about your industry that none of your competitors believe or act on?',
-        'Are you currently competing fiercely in a red ocean simply because it feels active, rather than building a monopoly in an uncontested space?'
+        'Is your current business settling for being merely "good", and what difficult sacred cow must you slaughter to become great?',
+        'If your company disappeared tomorrow, would your customers genuinely miss an irreplaceable capability or just switch to another vendor?'
       ]
     },
     keyQuotes: [
       {
-        quote: 'Competition is for losers. If you want to create and capture lasting value, look to build a monopoly.',
-        context: 'On the economic reality of perfect competition vs monopoly.'
+        quote: 'Good is the enemy of great. And that is one of the key reasons why we have so little that becomes great.',
+        context: 'On the complacency that prevents world-class execution.'
       },
       {
-        quote: 'All failed companies are the same: they failed to escape competition.',
-        context: 'On why companies go bankrupt.'
+        quote: 'You can accomplish anything in life, provided that you do not mind who gets the credit.',
+        context: 'On Level 5 personal humility.'
       },
       {
-        quote: 'The most contrarian thing of all is not to oppose the crowd but to think for yourself.',
-        context: 'On authentic original thinking.'
+        quote: 'Tremendous power exists in the fact of continued and repeated direction; every turn of the flywheel builds on what went before.',
+        context: 'On the physics of cumulative momentum.'
       }
     ]
   },

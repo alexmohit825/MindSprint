@@ -9,7 +9,7 @@ const CURATED_COVERS: Record<string, string> = {
   'thinking-fast-slow': 'https://covers.openlibrary.org/b/id/13290711-L.jpg',
   'atomic-habits': 'https://covers.openlibrary.org/b/id/12539702-L.jpg',
   'principles-dalio': 'https://covers.openlibrary.org/b/id/8315355-L.jpg',
-  'zero-to-one': 'https://covers.openlibrary.org/b/id/9002334-L.jpg',
+  'good-to-great': 'https://covers.openlibrary.org/b/id/14389659-L.jpg',
   'deep-work': 'https://covers.openlibrary.org/b/id/7988607-L.jpg',
   'psychology-of-money': 'https://covers.openlibrary.org/b/id/10389354-L.jpg',
   'antifragile': 'https://covers.openlibrary.org/b/id/9180157-L.jpg',
