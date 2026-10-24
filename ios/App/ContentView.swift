@@ -766,7 +766,7 @@ struct BookReaderSheetView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var selectedDepth: Int = 0 // 0: Spark (1 min), 1: Core (15 min), 2: Masterclass (40 min)
-    @State private var isPlayingAudio: Bool = false
+    @ObservedObject private var audio = AudioPlayerEngine.shared
     
     private var currentIndex: Int {
         allBooks.firstIndex(where: { $0.id == book.id }) ?? 0
@@ -836,26 +836,85 @@ struct BookReaderSheetView: View {
                         .padding(.horizontal)
                         .padding(.top, 16)
                         
-                        // Audio Narration Play Button
-                        Button(action: {
-                            isPlayingAudio.toggle()
-                            if isPlayingAudio {
-                                let narrationText = "\(book.title) by \(book.author). Executive Thesis: \(book.executiveThesis). Bottom Line: \(book.bottomLine)"
-                                AudioPlayerEngine.shared.playSpeech(text: narrationText, title: book.title, author: book.author)
+                        // Audio Narration Controls (Single-Voice, Pause/Resume/Stop Guaranteed)
+                        HStack(spacing: 10) {
+                            if audio.isPlaying && !audio.isPaused {
+                                Button(action: {
+                                    audio.pauseSpeech()
+                                }) {
+                                    HStack {
+                                        Image(systemName: "pause.fill")
+                                        Text("Pause")
+                                    }
+                                    .font(.system(size: 13, weight: .bold))
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 12)
+                                    .background(Color.yellow.opacity(0.85))
+                                    .foregroundColor(.black)
+                                    .cornerRadius(12)
+                                }
+                                
+                                Button(action: {
+                                    audio.stop()
+                                }) {
+                                    HStack {
+                                        Image(systemName: "square.fill")
+                                        Text("Stop")
+                                    }
+                                    .font(.system(size: 13, weight: .bold))
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 12)
+                                    .background(Color.red.opacity(0.8))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(12)
+                                }
+                            } else if audio.isPaused {
+                                Button(action: {
+                                    audio.resumeSpeech()
+                                }) {
+                                    HStack {
+                                        Image(systemName: "play.fill")
+                                        Text("Resume")
+                                    }
+                                    .font(.system(size: 13, weight: .bold))
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 12)
+                                    .background(Color(red: 229/255, green: 193/255, blue: 125/255))
+                                    .foregroundColor(.black)
+                                    .cornerRadius(12)
+                                }
+                                
+                                Button(action: {
+                                    audio.stop()
+                                }) {
+                                    HStack {
+                                        Image(systemName: "square.fill")
+                                        Text("Stop")
+                                    }
+                                    .font(.system(size: 13, weight: .bold))
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 12)
+                                    .background(Color.red.opacity(0.8))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(12)
+                                }
                             } else {
-                                AudioPlayerEngine.shared.stop()
+                                Button(action: {
+                                    let narrationText = "\(book.title) by \(book.author). Executive Thesis: \(book.executiveThesis). Bottom Line: \(book.bottomLine)"
+                                    audio.playSpeech(text: narrationText, title: book.title, author: book.author)
+                                }) {
+                                    HStack {
+                                        Image(systemName: "play.fill")
+                                        Text("Listen to Studio Narration")
+                                    }
+                                    .font(.system(size: 13, weight: .bold))
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 12)
+                                    .background(Color(red: 229/255, green: 193/255, blue: 125/255))
+                                    .foregroundColor(.black)
+                                    .cornerRadius(12)
+                                }
                             }
-                        }) {
-                            HStack {
-                                Image(systemName: isPlayingAudio ? "stop.fill" : "play.fill")
-                                Text(isPlayingAudio ? "Stop Studio Narration" : "Listen to Studio Narration")
-                            }
-                            .font(.system(size: 13, weight: .bold))
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
-                            .background(isPlayingAudio ? Color.red.opacity(0.8) : Color(red: 229/255, green: 193/255, blue: 125/255))
-                            .foregroundColor(isPlayingAudio ? .white : .black)
-                            .cornerRadius(12)
                         }
                         .padding(.horizontal)
                         
@@ -1060,23 +1119,42 @@ struct SectionBox<Content: View>: View {
 // MARK: - Synthesize Sheet View
 struct SynthesizeSheetView: View {
     let onBookCreated: (BookSummary) -> Void
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\\.dismiss) private var dismiss
     
     @State private var bookTitle: String = ""
     @State private var bookAuthor: String = ""
-    @State private var selectedGenre: String = "Leadership & Strategy"
+    @State private var selectedGenre: String = "Biographies & History"
+    @State private var customGenre: String = ""
     @State private var isSynthesizing: Bool = false
-    @State private var progressStep: Int = 0
+    @State private var errorMessage: String? = nil
     
-    let genres = ["Leadership & Strategy", "Psychology & Mind", "Productivity & Focus", "Wealth & Economics", "Ancient Classics", "Systems & Science"]
+    let genres = [
+        "Leadership & Strategy",
+        "Psychology & Mind",
+        "Productivity & Focus",
+        "Wealth & Economics",
+        "Ancient Classics",
+        "Systems & Science",
+        "Biographies & History",
+        "Philosophy & Ethics",
+        "Science & Technology",
+        "Other"
+    ]
     
     let quickSuggestions = [
+        ("You Learn by Living", "Eleanor Roosevelt"),
         ("Good to Great", "Jim Collins"),
-        ("The Prince", "Niccolò Machiavelli"),
-        ("The Wealth of Nations", "Adam Smith"),
-        ("Tao Te Ching", "Laozi"),
+        ("Thinking, Fast and Slow", "Daniel Kahneman"),
+        ("Meditations", "Marcus Aurelius"),
         ("Man's Search for Meaning", "Viktor Frankl")
     ]
+    
+    var effectiveCategory: String {
+        if selectedGenre == "Other" && !customGenre.trimmingCharacters(in: .whitespaces).isEmpty {
+            return customGenre.trimmingCharacters(in: .whitespaces)
+        }
+        return selectedGenre
+    }
     
     var body: some View {
         NavigationStack {
@@ -1092,15 +1170,30 @@ struct SynthesizeSheetView: View {
                                 .tracking(2)
                                 .foregroundColor(Color(red: 229/255, green: 193/255, blue: 125/255))
                             
-                            Text("Infinite Knowledge On Demand")
-                                .font(.system(size: 24, weight: .heavy, design: .serif))
+                            Text("Live Cloudflare Edge + Gemini AI")
+                                .font(.system(size: 22, weight: .heavy, design: .serif))
                                 .foregroundColor(.white)
                             
-                            Text("Enter any book, biography, ancient treatise, or academic paper to generate a 3-tier executive synthesis.")
+                            Text("Queries Google Gemini 3.8 Flash via encrypted serverless edge proxy. Real academic and biographical grounding.")
                                 .font(.system(size: 13))
                                 .foregroundColor(.gray)
                         }
                         .padding(.top, 10)
+                        
+                        // Error banner if any
+                        if let error = errorMessage {
+                            HStack(alignment: .top, spacing: 8) {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundColor(.red)
+                                Text(error)
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.white)
+                            }
+                            .padding(12)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color.red.opacity(0.2))
+                            .cornerRadius(10)
+                        }
                         
                         // Inputs
                         VStack(alignment: .leading, spacing: 14) {
@@ -1108,7 +1201,7 @@ struct SynthesizeSheetView: View {
                                 Text("BOOK TITLE")
                                     .font(.system(size: 10, weight: .bold))
                                     .foregroundColor(.gray)
-                                TextField("e.g. Good to Great or Tao Te Ching", text: $bookTitle)
+                                TextField("e.g. You Learn by Living or Thinking in Systems", text: $bookTitle)
                                     .padding(12)
                                     .background(Color.white.opacity(0.06))
                                     .foregroundColor(.white)
@@ -1116,10 +1209,10 @@ struct SynthesizeSheetView: View {
                             }
                             
                             VStack(alignment: .leading, spacing: 6) {
-                                Text("AUTHOR (OPTIONAL)")
+                                Text("AUTHOR (RECOMMENDED)")
                                     .font(.system(size: 10, weight: .bold))
                                     .foregroundColor(.gray)
-                                TextField("e.g. Jim Collins", text: $bookAuthor)
+                                TextField("e.g. Eleanor Roosevelt or Donella Meadows", text: $bookAuthor)
                                     .padding(12)
                                     .background(Color.white.opacity(0.06))
                                     .foregroundColor(.white)
@@ -1131,7 +1224,7 @@ struct SynthesizeSheetView: View {
                                     .font(.system(size: 10, weight: .bold))
                                     .foregroundColor(.gray)
                                 Picker("Category", selection: $selectedGenre) {
-                                    ForEach(genres, id: \.self) { g in
+                                    ForEach(genres, id: \\.self) { g in
                                         Text(g).tag(g)
                                     }
                                 }
@@ -1141,17 +1234,30 @@ struct SynthesizeSheetView: View {
                                 .background(Color.white.opacity(0.06))
                                 .cornerRadius(10)
                             }
+                            
+                            if selectedGenre == "Other" {
+                                VStack(alignment: .leading, spacing: 6) {
+                                    Text("CUSTOM CATEGORY NAME")
+                                        .font(.system(size: 10, weight: .bold))
+                                        .foregroundColor(Color(red: 229/255, green: 193/255, blue: 125/255))
+                                    TextField("e.g. Memoir, Neuroscience, Aviation...", text: $customGenre)
+                                        .padding(12)
+                                        .background(Color.white.opacity(0.06))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
+                                }
+                            }
                         }
                         
-                        // Quick Tap Suggestions
+                        // Quick Suggestions
                         VStack(alignment: .leading, spacing: 8) {
-                            Text("QUICK SUGGESTIONS")
+                            Text("VERIFIED SUGGESTIONS")
                                 .font(.system(size: 10, weight: .bold))
                                 .foregroundColor(.gray)
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 8) {
-                                    ForEach(quickSuggestions, id: \.0) { item in
+                                    ForEach(quickSuggestions, id: \\.0) { item in
                                         Button(action: {
                                             bookTitle = item.0
                                             bookAuthor = item.1
@@ -1169,13 +1275,12 @@ struct SynthesizeSheetView: View {
                             }
                         }
                         
-                        // Progress Indicator if Synthesizing
+                        // Real Loading Progress
                         if isSynthesizing {
                             VStack(spacing: 10) {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: Color(red: 229/255, green: 193/255, blue: 125/255)))
-                                
-                                Text(progressStep == 0 ? "Deconstructing core thesis..." : progressStep == 1 ? "Extracting mental models & chapters..." : "Generating dialectic critiques...")
+                                Text("Connecting to Gemini 3.8 Flash via Cloudflare Edge proxy (3–6s)...")
                                     .font(.system(size: 12, weight: .medium))
                                     .foregroundColor(.gray)
                             }
@@ -1187,45 +1292,114 @@ struct SynthesizeSheetView: View {
                         Button(action: {
                             guard !bookTitle.trimmingCharacters(in: .whitespaces).isEmpty else { return }
                             isSynthesizing = true
-                            progressStep = 0
+                            errorMessage = nil
                             
-                            // Simulate intelligent multi-stage cognitive extraction
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { progressStep = 1 }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { progressStep = 2 }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
-                                let newId = bookTitle.lowercased().replacingOccurrences(of: " ", with: "-")
-                                let authorName = bookAuthor.isEmpty ? "Author" : bookAuthor
-                                let synthesizedBook = BookSummary(
-                                    id: newId,
-                                    title: bookTitle,
-                                    subtitle: "Executive Synthesis & Operational Playbook",
-                                    author: authorName,
-                                    year: "2026",
-                                    category: selectedGenre,
-                                    readTime: "12 min",
-                                    rating: 4.90,
-                                    coverUrl: "https://covers.openlibrary.org/b/id/14389659-L.jpg",
-                                    executiveThesis: "The definitive thesis of \(bookTitle) demonstrates that sustainable achievement compounds through disciplined primitives, elimination of orthodoxy, and alignment with non-linear feedback loops.",
-                                    bottomLine: "Eliminate low-leverage distractions. Focus relentlessly on the single operational constraint that unlocks asymmetric return.",
-                                    goldenRules: [
-                                        "Rule 1: Focus strictly on high-leverage activities with asymmetric upside.",
-                                        "Rule 2: Confront operational bottlenecks directly rather than treating symptoms.",
-                                        "Rule 3: Establish repeatable feedback systems that compound without heroic intervention."
-                                    ],
-                                    chapters: [
-                                        BookChapter(number: 1, title: "The Primary Dilemma", breakdown: "Challenges conventional industry playbooks, demonstrating why blind conformity leads to stagnation.", keyInsight: "What feels safe to the crowd is often the most dangerous path."),
-                                        BookChapter(number: 2, title: "The Operational Machine", breakdown: "Explores the mechanical feedback loops and compounding habits underpinning durable victory.", keyInsight: "Micro-improvements compounded consistently outperform intermittent sprints."),
-                                        BookChapter(number: 3, title: "Asymmetric Execution", breakdown: "Structuring bets so that downside is strictly bounded while favorable tail events unlock exponential growth.", keyInsight: "Survival is the prerequisite for all compounding.")
-                                    ],
-                                    dialecticCritique: "The foundational premise assumes rational market actors; in heavily entrenched bureaucratic or highly political domains, procedural compliance often overrides theoretical purity.",
-                                    keyQuote: "Excellence is not an exceptional act; it is the compounding output of deliberate, uncompromising daily primitives."
-                                )
-                                onBookCreated(synthesizedBook)
+                            Task {
+                                do {
+                                    guard let endpoint = URL(string: "https://mindsprint-46j.pages.dev/api/synthesize") else {
+                                        throw URLError(.badURL)
+                                    }
+                                    var request = URLRequest(url: endpoint)
+                                    request.httpMethod = "POST"
+                                    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                                    request.timeoutInterval = 30
+                                    
+                                    let payload: [String: Any] = [
+                                        "title": bookTitle.trimmingCharacters(in: .whitespaces),
+                                        "author": bookAuthor.trimmingCharacters(in: .whitespaces),
+                                        "category": effectiveCategory,
+                                        "targetLanguage": "English"
+                                    ]
+                                    request.httpBody = try JSONSerialization.data(withJSONObject: payload)
+                                    
+                                    let (data, response) = try await URLSession.shared.data(for: request)
+                                    
+                                    guard let httpRes = response as? HTTPURLResponse else {
+                                        throw URLError(.badServerResponse)
+                                    }
+                                    
+                                    if httpRes.statusCode != 200 {
+                                        if let errObj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                                           let errMsg = errObj["error"] as? String {
+                                            throw NSError(domain: "MindSprint", code: httpRes.statusCode, userInfo: [NSLocalizedDescriptionKey: errMsg])
+                                        } else {
+                                            throw NSError(domain: "MindSprint", code: httpRes.statusCode, userInfo: [NSLocalizedDescriptionKey: "Server returned status \\(httpRes.statusCode)"])
+                                        }
+                                    }
+                                    
+                                    guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                                        throw URLError(.cannotParseResponse)
+                                    }
+                                    
+                                    let title = json["title"] as? String ?? bookTitle
+                                    let subtitle = json["subtitle"] as? String ?? ""
+                                    let author = json["author"] as? String ?? (bookAuthor.isEmpty ? "Author" : bookAuthor)
+                                    let year = json["year"] as? String ?? "2024"
+                                    let category = json["category"] as? String ?? effectiveCategory
+                                    let rating = (json["rating"] as? NSNumber)?.doubleValue ?? 4.90
+                                    let coverDict = json["cover"] as? [String: Any]
+                                    let coverUrl = coverDict?["coverUrl"] as? String ?? "https://covers.openlibrary.org/b/id/14389659-L.jpg"
+                                    
+                                    let spark = json["spark"] as? [String: Any]
+                                    let thesis = spark?["executiveThesis"] as? String ?? "Executive synthesis grounded in primary text."
+                                    let bottomLine = spark?["bottomLine"] as? String ?? ""
+                                    let goldenRules = spark?["threeGoldenRules"] as? [String] ?? []
+                                    
+                                    var parsedChapters: [BookChapter] = []
+                                    if let core = json["core"] as? [String: Any],
+                                       let chList = core["chapters"] as? [[String: Any]] {
+                                        for (idx, ch) in chList.enumerated() {
+                                            parsedChapters.append(BookChapter(
+                                                number: ch["number"] as? Int ?? (idx + 1),
+                                                title: ch["title"] as? String ?? "Chapter \\(idx + 1)",
+                                                breakdown: ch["breakdown"] as? String ?? "",
+                                                keyInsight: ch["keyInsight"] as? String ?? ""
+                                            ))
+                                        }
+                                    }
+                                    
+                                    let masterclass = json["masterclass"] as? [String: Any]
+                                    let critiqueDict = masterclass?["dialecticCritique"] as? [String: Any]
+                                    let dialectic = critiqueDict?["authorBlindspots"] as? String ?? "Critique grounded in historical and intellectual boundaries."
+                                    
+                                    var firstQuote = ""
+                                    if let quotes = json["keyQuotes"] as? [[String: Any]], let first = quotes.first {
+                                        firstQuote = first["quote"] as? String ?? ""
+                                    }
+                                    
+                                    let synthesizedBook = BookSummary(
+                                        id: json["id"] as? String ?? UUID().uuidString,
+                                        title: title,
+                                        subtitle: subtitle,
+                                        author: author,
+                                        year: year,
+                                        category: category,
+                                        readTime: "14 min",
+                                        rating: rating,
+                                        coverUrl: coverUrl,
+                                        executiveThesis: thesis,
+                                        bottomLine: bottomLine,
+                                        goldenRules: goldenRules,
+                                        chapters: parsedChapters,
+                                        dialecticCritique: dialectic,
+                                        keyQuote: firstQuote
+                                    )
+                                    
+                                    await MainActor.run {
+                                        isSynthesizing = false
+                                        onBookCreated(synthesizedBook)
+                                    }
+                                } catch {
+                                    await MainActor.run {
+                                        isSynthesizing = false
+                                        errorMessage = error.localizedDescription
+                                    }
+                                }
                             }
                         }) {
                             HStack {
                                 Image(systemName: "sparkles")
-                                Text(isSynthesizing ? "Synthesizing..." : "Generate Executive Synthesis")
+                                Text(isSynthesizing ? "Synthesizing with Gemini..." : "Generate Executive Synthesis")
                             }
                             .font(.system(size: 14, weight: .bold))
                             .frame(maxWidth: .infinity)

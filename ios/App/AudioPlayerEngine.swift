@@ -2,72 +2,105 @@ import Foundation
 import AVFoundation
 import MediaPlayer
 
-final class AudioPlayerEngine: ObservableObject {
+final class AudioPlayerEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     static let shared = AudioPlayerEngine()
     
-    private let audioEngine = AVAudioEngine()
-    private let playerNode = AVAudioPlayerNode()
+    private let speechSynthesizer = AVSpeechSynthesizer()
+    
     @Published var isPlaying = false
+    @Published var isPaused = false
     @Published var currentBookTitle = ""
     @Published var currentAuthor = ""
     
-    private init() {
+    override private init() {
+        super.init()
+        speechSynthesizer.delegate = self
         setupAudioSession()
-        setupEngine()
     }
     
     private func setupAudioSession() {
         do {
             let session = AVAudioSession.sharedInstance()
-            try session.setCategory(.playback, mode: .spokenAudio, options: [])
+            try session.setCategory(.playback, mode: .spokenAudio, options: [.duckOthers])
             try session.setActive(true)
         } catch {
             print("[AudioPlayerEngine] Session error: \(error)")
         }
     }
     
-    private func setupEngine() {
-        audioEngine.attach(playerNode)
-        
-        // Anti-Leap 8: Use Float32 standard non-interleaved format for hardware compatibility
-        let hardwareFormat = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)
-        audioEngine.connect(playerNode, to: audioEngine.mainMixerNode, format: hardwareFormat)
-        
-        do {
-            try audioEngine.start()
-        } catch {
-            print("[AudioPlayerEngine] Failed to start engine: \(error)")
-        }
-    }
-    
     func playSpeech(text: String, title: String, author: String) {
+        // 1. Immediately kill any currently playing or queued utterance
+        if speechSynthesizer.isSpeaking {
+            speechSynthesizer.stopSpeaking(at: .immediate)
+        }
+        
         currentBookTitle = title
         currentAuthor = author
         isPlaying = true
+        isPaused = false
         
-        // Native AVSpeechSynthesizer with background audio ducking
         let utterance = AVSpeechUtterance(string: text)
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         
-        let synth = AVSpeechSynthesizer()
-        synth.speak(utterance)
+        // Select Enhanced or Premium Apple Voice if available on device
+        let allVoices = AVSpeechSynthesisVoice.speechVoices()
+        let enhancedVoice = allVoices.first { v in
+            v.language.starts(with: "en") && (v.quality == .enhanced || v.quality == .premium)
+        } ?? AVSpeechSynthesisVoice(language: "en-US")
         
-        updateNowPlaying(title: title, author: author)
+        utterance.voice = enhancedVoice
+        
+        speechSynthesizer.speak(utterance)
+        updateNowPlaying(title: title, author: author, isPlaying: true)
+    }
+    
+    func pauseSpeech() {
+        if speechSynthesizer.isSpeaking && !speechSynthesizer.isPaused {
+            speechSynthesizer.pauseSpeaking(at: .immediate)
+            isPaused = true
+            updateNowPlaying(title: currentBookTitle, author: currentAuthor, isPlaying: false)
+        }
+    }
+    
+    func resumeSpeech() {
+        if speechSynthesizer.isPaused {
+            speechSynthesizer.continueSpeaking()
+            isPaused = false
+            isPlaying = true
+            updateNowPlaying(title: currentBookTitle, author: currentAuthor, isPlaying: true)
+        }
     }
     
     func stop() {
-        playerNode.stop()
+        speechSynthesizer.stopSpeaking(at: .immediate)
         isPlaying = false
+        isPaused = false
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nil
     }
     
-    private func updateNowPlaying(title: String, author: String) {
+    // MARK: - AVSpeechSynthesizerDelegate
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        DispatchQueue.main.async {
+            self.isPlaying = false
+            self.isPaused = false
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = nil
+        }
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        DispatchQueue.main.async {
+            self.isPlaying = false
+            self.isPaused = false
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = nil
+        }
+    }
+    
+    private func updateNowPlaying(title: String, author: String, isPlaying: Bool) {
         var nowPlayingInfo = [String: Any]()
         nowPlayingInfo[MPMediaItemPropertyTitle] = title
         nowPlayingInfo[MPMediaItemPropertyArtist] = author
         nowPlayingInfo[MPMediaItemPropertyAlbumTitle] = "MindSprint Book Synthesis"
-        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 1.0
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = isPlaying ? 1.0 : 0.0
         
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }

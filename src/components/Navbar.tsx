@@ -17,16 +17,16 @@ interface NavbarProps {
 
 const CATEGORIES = [
   'All Syntheses',
-  'Ancient Texts & Classics',
-  'Academic & Scientific Treatises',
-  'Cognitive Psychology',
-  'Productivity & Behavioral Design',
-  'Strategy & Leadership',
-  'Venture & Strategy',
-  'Behavioral Economics',
-  'Philosophy & Risk Engineering',
-  'Leadership & Operations',
-  'Anthropology & History'
+  'Leadership & Strategy',
+  'Psychology & Mind',
+  'Productivity & Focus',
+  'Wealth & Economics',
+  'Ancient Classics',
+  'Systems & Science',
+  'Biographies & History',
+  'Philosophy & Ethics',
+  'Science & Technology',
+  'Other'
 ];
 
 export const Navbar: React.FC<NavbarProps> = ({
