@@ -189,16 +189,15 @@ export default {
 
     // 3. Binary IPA Handler: /MindSprint.ipa
     if (path === '/mindsprint.ipa') {
-      // Check if uploaded asset exists in worker bundle or redirect to GitHub Releases
       const githubReleaseUrl = `https://github.com/alexmohit825/MindSprint/releases/download/v1.0.0-adhoc/MindSprint.ipa`;
       return Response.redirect(githubReleaseUrl, 302);
     }
 
-    // 4. API Route: /api/synthesize
+    // 4. API Route: /api/synthesize (Universal Multi-Genre, Ancient & Multilingual Engine)
     if (url.pathname === '/api/synthesize' && request.method === 'POST') {
       try {
         const body = await request.json();
-        const { title, author } = body;
+        const { title, author, targetLanguage = 'English', textTypeHint = 'auto' } = body;
 
         if (!title) {
           return new Response(JSON.stringify({ error: 'Title is required' }), {
@@ -209,7 +208,18 @@ export default {
 
         const apiKey = env.GEMINI_API_KEY || (typeof process !== 'undefined' ? process.env.GEMINI_API_KEY : '');
         
-        const systemPrompt = `You are MindSprint's Principal Analytical Synthesizer. You produce executive-tier, deeply rigorous, non-naive book summaries that outclass Blinkist and Shortform.
+        const systemPrompt = `You are MindSprint's Principal Analytical Synthesizer & Polymath Philologist. You synthesize non-fiction, ancient classical texts (Greek, Latin, Chinese, Sanskrit, Arabic, Hebrew), and dense academic treatises with world-class intellectual rigor, outperforming Blinkist and Shortform.
+
+Target Language for Output: ${targetLanguage}.
+If the text is Ancient or Classical:
+- Set "textType": "ancient"
+- Include "philologicalApparatus" with original script excerpts, historical era, civilizational context, and lineage impact.
+- Include original language citations and transliterations in "keyQuotes".
+
+If the text is an Academic or Scientific Treatise:
+- Set "textType": "academic"
+- Include "academicMethodology" with formal epistemology, mathematical foundations, empirical validity, and limitations.
+
 Format output as strictly valid JSON matching this schema:
 {
   "id": "kebab-case-title",
@@ -217,23 +227,43 @@ Format output as strictly valid JSON matching this schema:
   "subtitle": "Clear, compelling, high-level thesis subtitle",
   "author": "${author || 'Unknown'}",
   "year": 2024,
-  "category": "Strategy & Leadership",
+  "category": "Ancient Texts & Classics | Academic & Scientific Treatises | Strategy & Leadership",
+  "textType": "standard | ancient | academic",
+  "originalLanguage": "English | Ancient Greek | Classical Chinese | Latin | Classical Arabic | German | etc.",
+  "targetLanguage": "${targetLanguage}",
+  "philologicalApparatus": {
+    "historicalEra": "Exact historical dynasty, war, or period",
+    "civilizationalContext": "Why and where it was written",
+    "lineageImpact": "How it influenced 500-2500 years of thought",
+    "originalScriptExcerpt": {
+      "originalText": "Quote in original script (Greek, Chinese, Arabic, Latin, etc.)",
+      "language": "Original language name",
+      "transliteration": "Romanized phonetic transliteration",
+      "literalMeaning": "Word-for-word translation"
+    }
+  },
+  "academicMethodology": {
+    "formalFramework": "Underlying theory or methodology",
+    "empiricalValidity": "Replication status, empirical evidence",
+    "mathematicalFoundations": ["Key formula or formal definition in LaTeX"],
+    "limitations": "Critical academic boundaries"
+  },
   "rating": 4.9,
-  "readTime": { "spark": "1 min", "core": "12 min", "masterclass": "35 min" },
+  "readTime": { "spark": "1 min", "core": "14 min", "masterclass": "38 min" },
   "cover": {
     "bgGradient": "from-[#1A1829] via-[#0E1018] to-[#08090D]",
     "accentColor": "#818CF8",
-    "motif": "Geometric Metaphor",
+    "motif": "Geometric or Classical Metaphor",
     "tagline": "A single profound philosophical tagline"
   },
   "spark": {
-    "executiveThesis": "Deep, comprehensive 3-sentence thesis",
-    "bottomLine": "Direct, actionable 1-sentence bottom line",
+    "executiveThesis": "Deep, comprehensive 3-sentence thesis in ${targetLanguage}",
+    "bottomLine": "Direct, actionable 1-sentence bottom line in ${targetLanguage}",
     "threeGoldenRules": ["Rule 1", "Rule 2", "Rule 3"],
     "coreMentalModel": {
       "name": "Primary Mental Model Name",
       "description": "Detailed description of the model",
-      "diagramType": "matrix"
+      "diagramType": "matrix | flywheel | compounding | loop | inversion"
     }
   },
   "core": {
@@ -243,35 +273,35 @@ Format output as strictly valid JSON matching this schema:
         "title": "Chapter 1 Title",
         "breakdown": "Substantive analytical breakdown",
         "keyInsight": "The single high-leverage insight",
-        "anecdote": "Specific historical or corporate anecdote"
+        "anecdote": "Specific historical, experimental, or corporate anecdote",
+        "originalCitation": "Book or passage citation"
       },
       {
         "number": 2,
         "title": "Chapter 2 Title",
         "breakdown": "Substantive analytical breakdown",
         "keyInsight": "The single high-leverage insight",
-        "anecdote": "Specific historical or corporate anecdote"
+        "anecdote": "Specific historical, experimental, or corporate anecdote"
       },
       {
         "number": 3,
         "title": "Chapter 3 Title",
         "breakdown": "Substantive analytical breakdown",
-        "keyInsight": "The single high-leverage insight",
-        "anecdote": "Specific historical or corporate anecdote"
+        "keyInsight": "The single high-leverage insight"
       }
     ]
   },
   "masterclass": {
     "dialecticCritique": {
-      "authorBlindspots": "What the author got wrong or overlooked",
+      "authorBlindspots": "What the author got wrong, overlooked, or historical limits",
       "counterArguments": [
         { "opposingThinker": "Opposing Thinker Name", "counterpoint": "Their substantive rebuttal" }
       ],
-      "validityNotes": "Empirical replication notes or limitations"
+      "validityNotes": "Empirical replication or historical textual integrity notes"
     },
     "authorBiases": ["Bias 1", "Bias 2"],
     "caseStudies": [
-      { "entity": "Company or Historical Entity", "scenario": "The challenge", "outcome": "The result" }
+      { "entity": "Company, Empire, or Historical Entity", "scenario": "The challenge", "outcome": "The result" }
     ],
     "actionPlaybook": [
       { "step": 1, "action": "Actionable directive", "executionDetail": "Step-by-step implementation protocol" },
@@ -283,12 +313,16 @@ Format output as strictly valid JSON matching this schema:
     ]
   },
   "keyQuotes": [
-    { "quote": "Profound quote from the book", "context": "Context or lesson" },
-    { "quote": "Second memorable quote", "context": "Context or lesson" }
+    {
+      "quote": "Translated quote in ${targetLanguage}",
+      "originalQuote": "Quote in original script (if ancient or foreign language)",
+      "originalLanguage": "Language name",
+      "context": "Context or lesson"
+    }
   ]
 }`;
 
-        const prompt = `Synthesize the book "${title}" by author "${author || ''}". Output ONLY the raw JSON object with zero markdown backticks.`;
+        const prompt = `Synthesize the book "${title}" by author "${author || ''}". Target language: ${targetLanguage}. Hint: ${textTypeHint}. Output ONLY the raw JSON object with zero markdown backticks.`;
 
         const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
           method: 'POST',

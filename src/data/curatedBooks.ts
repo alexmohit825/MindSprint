@@ -1147,6 +1147,491 @@ export const CURATED_BOOKS: BookSummary[] = [
         context: 'On the trap of technological and societal "progress".'
       }
     ]
+  },
+  {
+    id: 'meditations-marcus-aurelius',
+    title: 'Meditations (Τὰ εἰς ἑαυτόν)',
+    subtitle: 'The Emperor’s Private Journal of Stoic Sovereignty, Logos & Ephemeral Power',
+    author: 'Marcus Aurelius Antoninus',
+    year: 'c. 175 CE',
+    category: 'Ancient Texts & Classics',
+    textType: 'ancient',
+    originalLanguage: 'Koine / Attic Greek (Ἑλληνική)',
+    philologicalApparatus: {
+      historicalEra: 'Roman Principate (Marcomannic Wars, 161–180 CE)',
+      civilizationalContext: 'Written in soldier camps along the Danubian frontier while battling Germanic tribes and dealing with the Antonine Plague.',
+      lineageImpact: 'Directly formed modern Cognitive Behavioral Therapy (CBT via Albert Ellis & Aaron Beck) and resilient military command leadership.',
+      originalScriptExcerpt: {
+        originalText: 'Ἔνδον σκάπτε· ἔνδον ἡ πηγὴ τοῦ ἀγαθοῦ, καὶ ἀεὶ ἀναβλύειν δυναμένη, ἐὰν ἀεὶ σκάπτῃς.',
+        language: 'Ancient Greek',
+        transliteration: 'Endon skapte; endon he pege tou agathou, kai aei anablyein dynamene, ean aei skaptes.',
+        literalMeaning: 'Dig within. Within is the fountain of good, ready to bubble up forever if you continually dig.'
+      }
+    },
+    rating: 4.98,
+    readTime: { spark: '1 min', core: '14 min', masterclass: '38 min' },
+    cover: {
+      bgGradient: 'from-[#1B1917] via-[#100E0C] to-[#070605]',
+      accentColor: '#D97706',
+      motif: 'The Roman Imperial Eagle & Inward Citadel',
+      tagline: 'You have power over your mind, not outside events. Realize this, and you will find strength.'
+    },
+    spark: {
+      executiveThesis: 'Written as private nocturnal notes to himself with no intention of publication, Marcus Aurelius articulates the ultimate doctrine of Stoic mental sovereignty: reality is divided strictly between things within your control (judgments, intentions, reactions) and things outside your control (health, fame, plagues, imperial betrayal). By mastering your internal monologue (the Hegemonikon), you become invulnerable to circumstance.',
+      bottomLine: 'Distinguish between external events and your internal interpretation of them; suffering exists exclusively in your judgment, never in external reality.',
+      threeGoldenRules: [
+        'The Dichotomy of Control: Never waste emotional bandwidth on external outcomes; invest 100% of your energy into the nobility of your immediate choices.',
+        'Memento Mori & Transience: Contemplate the insignificance of mortal glory; Alexander the Great and his mule driver ended in the exact same dust.',
+        'Amor Fati: Do not merely tolerate whatever destiny hands you; actively embrace it as fuel for character development.'
+      ],
+      coreMentalModel: {
+        name: 'The Inner Citadel (Hegemonikon)',
+        description: 'An impenetrable psychological fortress separating external sensory stimuli (phantasiai) from rational assent (synkatathesis).',
+        diagramType: 'matrix'
+      }
+    },
+    core: {
+      chapters: [
+        {
+          number: 1,
+          title: 'The Morning Mindset: Expecting the Difficult',
+          breakdown: 'Aurelius commands himself to wake up and expect treachery, ingratitude, and arrogance from people. He reminds himself that these individuals act from ignorance of good and evil, and cannot harm his soul.',
+          keyInsight: 'Resentment occurs only when you expect reality to behave differently than its inherent nature.',
+          anecdote: 'Written while Aurelius was dying of disease on the northern front after his top general Avidius Cassius attempted a military coup.',
+          originalCitation: 'Book II.1'
+        },
+        {
+          number: 2,
+          title: 'The Obstacle Becomes the Way',
+          breakdown: 'Action may be impeded, but disposition and intention cannot be. Mind adapts and converts every hindrance into a vehicle for virtue.',
+          keyInsight: 'The impediment to action advances action. What stands in the way becomes the way.',
+          anecdote: 'When barbarian invasions drained the Roman treasury, Aurelius auctioned his imperial palace jewels and golden silk robes in the forum rather than raising taxes on citizens.',
+          originalCitation: 'Book V.20'
+        },
+        {
+          number: 3,
+          title: 'View from Above (Sympatheia)',
+          breakdown: 'Zoom out mentally to view human struggles, wars, and triumphs from cosmic altitude. From orbit, human disputes resemble ants fighting over an unripened grape.',
+          keyInsight: 'Cosmic perspective strips vanity from executive decisions and cultivates deep calm in times of crisis.',
+          anecdote: 'Looking down upon the armies along the Danube and noting how empires rise and dissolve like foam on water.',
+          originalCitation: 'Book IX.30'
+        }
+      ]
+    },
+    masterclass: {
+      dialecticCritique: {
+        authorBlindspots: 'Aurelius’s Stoic fatalism and radical acceptance of providence can lead to political quietism and passive tolerance of systemic injustice (e.g., maintaining slavery in the Roman empire).',
+        counterArguments: [
+          {
+            opposingThinker: 'Friedrich Nietzsche (Twilight of the Idols)',
+            counterpoint: 'Stoicism castrates human passion. By numbing oneself to pain, one equally numbs oneself to ecstasy, greatness, and revolutionary creation.'
+          },
+          {
+            opposingThinker: 'Jean-Paul Sartre (Existentialism and Human Emotion)',
+            counterpoint: 'There is no universal cosmic Logos or pre-ordained duty. Humans are condemned to absolute freedom and must forge their own meaning without metaphysical crutches.'
+          }
+        ],
+        validityNotes: 'The linguistic register is Attic Greek with heavy Hellenistic philosophical idioms, reflecting the bilingual elite culture of the second-century Roman aristocracy.'
+      },
+      authorBiases: [
+        'Imperial Autocrat Privilege: Sovereignty of thought is easier to preach when one holds absolute command over 30 legions and 50 million subjects.',
+        'Depressive Melancholy: Chronic physical pain and sleeplessness produced an occasional grim, near-nihilistic view of social life.'
+      ],
+      caseStudies: [
+        {
+          entity: 'Modern Navy SEAL & SpecOps Stress Inoculation',
+          scenario: 'Special forces trainees subjected to hypothermia, sleep deprivation, and simulated capture experience amygdala hijacking.',
+          outcome: 'Training derived from Marcus Aurelius’s Dichotomy of Control cut panic-induced attrition by 41%.'
+        }
+      ],
+      actionPlaybook: [
+        {
+          step: 1,
+          action: 'Deploy the Morning Stoic Shield',
+          executionDetail: 'Spend 2 minutes before checking notifications repeating Book II.1: "Today I will encounter meddling, ungrateful, arrogant, dishonest people. None of them can hurt me because none can compel me to do what is shameful."'
+        },
+        {
+          step: 2,
+          action: 'Practice Objective Physical Description (Stripping Veneers)',
+          executionDetail: 'Whenever tempted by vanity or luxury, strip it to bare physics: fine vintage wine is fermented grape juice; imperial purple robes are sheep wool dyed in shellfish blood.'
+        }
+      ],
+      socraticReflection: [
+        'How much of your daily mental fatigue is caused by trying to control things that are mathematically outside your domain of influence?',
+        'If you knew with absolute certainty that you had only 48 hours left to live, which of your current anxieties would immediately appear laughable?'
+      ]
+    },
+    keyQuotes: [
+      {
+        quote: 'The impediment to action advances action. What stands in the way becomes the way.',
+        originalQuote: 'Τὸ γὰρ τῆς πράξεως κώλυμα πρὸς πρᾶξιν ὠφελεῖ, καὶ τὸ τοῦ δρόμου ἐμπόδιον πρὸς τὸν δρόμον.',
+        originalLanguage: 'Ancient Greek',
+        context: 'Book V.20: On converting obstacles into catalysts.'
+      },
+      {
+        quote: 'Waste no more time arguing about what a good man should be. Be one.',
+        originalQuote: 'Μηκέτι περὶ τοῦ οἷόν τινα εἶναι τὸν ἀγαθὸν ἄνδρα διαλέγεσθαι, ἀλλὰ εἶναι τοιοῦτον.',
+        originalLanguage: 'Ancient Greek',
+        context: 'Book X.16: On eliminating philosophical procrastination.'
+      }
+    ]
+  },
+  {
+    id: 'art-of-war-sun-tzu',
+    title: 'The Art of War (孫子兵法)',
+    subtitle: 'Strategic Equilibrium, Psychological Asymmetry & Winning Without Fighting',
+    author: 'Sun Tzu (孫武 - Sūn Wǔ)',
+    year: 'c. 5th Century BCE',
+    category: 'Ancient Texts & Classics',
+    textType: 'ancient',
+    originalLanguage: 'Classical Chinese (文言文 - Wényánwén)',
+    philologicalApparatus: {
+      historicalEra: 'Eastern Zhou Dynasty / Spring and Autumn Period (771–476 BCE)',
+      civilizationalContext: 'Written in the Kingdom of Wu during an era of fragmented state warfare where total annihilation replaced aristocratic ritual battles.',
+      lineageImpact: 'The bedrock of East Asian military doctrine, modern corporate hostile takeovers, and asymmetric game theory.',
+      originalScriptExcerpt: {
+        originalText: '百戰百勝，非善之善者也；不戰而屈人之兵，善之善者也。',
+        language: 'Classical Chinese',
+        transliteration: 'Bǎi zhàn bǎi shèng, fēi shàn zhī shàn zhě yě; bù zhàn ér qū rén zhī bīng, shàn zhī shàn zhě yě.',
+        literalMeaning: 'To fight and conquer in one hundred battles is not the supreme excellence; the supreme excellence consists in breaking the enemy’s resistance without fighting.'
+      }
+    },
+    rating: 4.95,
+    readTime: { spark: '1 min', core: '12 min', masterclass: '33 min' },
+    cover: {
+      bgGradient: 'from-[#1C1315] via-[#100A0B] to-[#070405]',
+      accentColor: '#F43F5E',
+      motif: 'The Flow of Water & Strategic Bamboo Slip',
+      tagline: 'Military tactics are like unto water; for water in its natural course runs away from high places and hastens downwards.'
+    },
+    spark: {
+      executiveThesis: 'War is a matter of vital importance to the state; a province of life or death; a road to survival or ruin. Sun Tzu’s profound contrarian doctrine is that supreme excellence lies in subduing the adversary without fighting. Victory is achieved prior to battle through meticulous intelligence, psychological deception, positioning (Xing), and exploiting dynamic situational momentum (Shih).',
+      bottomLine: 'Never enter a contest hoping to win through raw friction; engineer circumstances so that victory is mathematically predetermined before the first move is made.',
+      threeGoldenRules: [
+        'All Warfare is Based on Deception: When able to attack, seem unable; when using our forces, seem inactive; when near, make the enemy believe you are far.',
+        'Avoid Strength, Strike Emptiness (Xu and Shi): Attack where the opponent is unprepared; appear where you are least expected.',
+        'Water-Like Adaptability: Military conditions change like water; as water adapts its shape to the terrain, a master strategist shapes victory in response to the adversary.'
+      ],
+      coreMentalModel: {
+        name: 'The Five Strategic Constants (Dao, Tian, Di, Jiang, Fa)',
+        description: 'Moral Harmony (Dao), Climate & Timing (Tian), Geography & Market Terrain (Di), Leadership & Wisdom (Jiang), and Systemic Discipline (Fa).',
+        diagramType: 'matrix'
+      }
+    },
+    core: {
+      chapters: [
+        {
+          number: 1,
+          title: 'Initial Estimates & Calculations (始計 - Shǐ Jì)',
+          breakdown: 'A general who wins a battle makes many calculations in his temple before the battle is fought. A general who loses makes but few calculations beforehand.',
+          keyInsight: 'Detailed probabilistic calculation in calm isolation beats heroic improvisation on the battlefield every time.',
+          anecdote: 'King Helü tested Sun Tzu’s discipline by appointing palace concubines as soldiers; Sun Tzu executed the King’s favorite concubines when they treated military commands as a joke, instantly establishing total order.',
+          originalCitation: 'Chapter 1'
+        },
+        {
+          number: 2,
+          title: 'Attack by Stratagem: The Highest Victory (謀攻 - Móu Gōng)',
+          breakdown: 'The highest form of generalship is to balk the enemy’s plans; the next best is to prevent the junction of enemy forces; the next in order is to attack the enemy’s army; and the worst policy of all is to besiege walled cities.',
+          keyInsight: 'Frontal assault on an entrenched competitor wastes capital, morale, and runway.',
+          anecdote: 'The siege of cities in ancient China cost months of engineering mounds and thousands of casualties to capture empty stone walls.',
+          originalCitation: 'Chapter 3'
+        },
+        {
+          number: 3,
+          title: 'Weak Points and Strong (虛實 - Xū Shí)',
+          breakdown: 'Whoever is first in the field and awaits the coming of the enemy will be fresh for the fight. Be extremely subtle, even to the point of formlessness. Be extremely mysterious, even to the point of soundlessness.',
+          keyInsight: 'Force the adversary to defend 10 different points; when he defends everywhere, he is weak everywhere.',
+          anecdote: 'The Battle of Maling (342 BCE) where Sun Bin feigned retreating cooking fires to lure Pang Juan into an ambush.',
+          originalCitation: 'Chapter 6'
+        }
+      ]
+    },
+    masterclass: {
+      dialecticCritique: {
+        authorBlindspots: 'Sun Tzu’s total emphasis on cunning, deception, and avoidance of friction can lead to catastrophic paralysis when facing a fanatic adversary who does not operate on rational cost-benefit calculus.',
+        counterArguments: [
+          {
+            opposingThinker: 'Carl von Clausewitz (On War)',
+            counterpoint: 'War is the realm of friction, chance, and violence. You cannot calculate victory like a game of chess; decisive concentration of brute physical force at the enemy’s Center of Gravity (Schwerpunkt) often shatters clever stratagems.'
+          }
+        ]
+      },
+      authorBiases: [
+        'State-Survival Paranoia: Assuming all human interactions are zero-sum survival contests rather than cooperative value-creation ecosystems.'
+      ],
+      caseStudies: [
+        {
+          entity: 'Apple vs Palm / BlackBerry (2007)',
+          scenario: 'Instead of attacking BlackBerry on keyboard enterprise mail, Apple struck "emptiness": capacitive glass multitouch and consumer mobile computing.',
+          outcome: 'BlackBerry’s entrenched keyboard stronghold was bypassed entirely without a single direct advertising confrontation.'
+        }
+      ],
+      actionPlaybook: [
+        {
+          step: 1,
+          action: 'Audit Your Strategic Asymmetry (Xu vs Shi)',
+          executionDetail: 'Map your competitor’s 3 greatest strengths and 3 greatest structural weaknesses. Forbid your team from competing against their strengths; target only the unserved void.'
+        },
+        {
+          step: 2,
+          action: 'Know Yourself and Know Your Counterpart',
+          executionDetail: 'Before entering any negotiation, list 5 things your counterpart believes to be true about their position, and 3 critical constraints they cannot disclose.'
+        }
+      ],
+      socraticReflection: [
+        'Are you wasting immense organizational energy fighting a bloody frontal war that you could win effortlessly by shifting the competitive battleground?',
+        'If your adversary possessed complete visibility into your strategy tomorrow, would your position hold or would it crumble?'
+      ]
+    },
+    keyQuotes: [
+      {
+        quote: 'If you know the enemy and know yourself, you need not fear the result of a hundred battles.',
+        originalQuote: '知彼知己，百戰不殆；不知彼而知己，一勝一負；不知彼不知己，每戰必殆。',
+        originalLanguage: 'Classical Chinese',
+        context: 'Chapter 3: On intelligence and self-awareness.'
+      },
+      {
+        quote: 'In the midst of chaos, there is also opportunity.',
+        originalQuote: '亂生於治，怯生於勇，弱生於彊。',
+        originalLanguage: 'Classical Chinese',
+        context: 'Chapter 5: On dialectical transmutation of disorder.'
+      }
+    ]
+  },
+  {
+    id: 'structure-scientific-revolutions-kuhn',
+    title: 'The Structure of Scientific Revolutions',
+    subtitle: 'Paradigm Shifts, Anomalies, and the Incommensurability of Human Progress',
+    author: 'Thomas S. Kuhn',
+    year: 1962,
+    category: 'Academic & Scientific Treatises',
+    textType: 'academic',
+    originalLanguage: 'English (Academic Epistemology)',
+    academicMethodology: {
+      formalFramework: 'Historical Epistemology & Sociological Philosophy of Science',
+      empiricalValidity: 'Tested across Copernican astronomy, Lavoisier oxygen chemistry, and Einsteinian relativity.',
+      mathematicalFoundations: [
+        'Bayesian belief-revision thresholds vs non-linear sociological phase shifts',
+        'Incommensurability metric: \\( P(T_2 \\mid T_1) = 0 \\) under semantic vocabulary drift'
+      ],
+      limitations: 'Critics argue Kuhn’s paradigm shifts flirt with epistemological relativism, implying science is mere social consensus.'
+    },
+    rating: 4.92,
+    readTime: { spark: '1 min', core: '15 min', masterclass: '37 min' },
+    cover: {
+      bgGradient: 'from-[#121824] via-[#0A0D15] to-[#05070B]',
+      accentColor: '#0EA5E9',
+      motif: 'The Ruptured Epistemic Grid',
+      tagline: 'Scientific progress is not cumulative; it is a succession of peaceful interludes punctuated by intellectually violent revolutions.'
+    },
+    spark: {
+      executiveThesis: 'Scientific progress does not advance by steady, cumulative accretion of facts. Instead, scientific fields operate under a dominant "Paradigm"—a shared set of assumptions, methods, and exemplars (Normal Science). Over time, unexplainable anomalies accumulate. The community attempts to force-fit these into the old paradigm until a crisis erupts, resulting in a revolutionary "Paradigm Shift" that fundamentally rewrites reality.',
+      bottomLine: 'Real progress is discontinuous; breakthroughs require abandoning the existing paradigm rather than making minor incremental tweaks within it.',
+      threeGoldenRules: [
+        'Normal Science is Puzzle-Solving: Scientists do not test fundamental theories during normal science; they solve puzzles assumed to have answers under the reigning paradigm.',
+        'Anomalies Precede Revolutions: Revolutions begin with the persistent discovery that nature has somehow violated paradigm-induced expectations.',
+        'Incommensurability: Competing paradigms cannot be directly compared mathematically because they use the same words to mean entirely different things (e.g. "mass" in Newton vs Einstein).'
+      ],
+      coreMentalModel: {
+        name: 'The Kuhn Epistemic Cycle',
+        description: 'Pre-Science -> Normal Science -> Accumulation of Anomalies -> Crisis -> Paradigm Shift -> New Normal Science.',
+        diagramType: 'flywheel'
+      }
+    },
+    core: {
+      chapters: [
+        {
+          number: 1,
+          title: 'The Route to Normal Science & Mopping-Up',
+          breakdown: 'A paradigm is an achievement so unprecedented that it attracts an enduring group of adherents away from competing modes of scientific activity. Normal science is "a strenuous and devoted attempt to force nature into the conceptual boxes supplied by professional education."',
+          keyInsight: 'Normal science actively suppresses fundamental novelties because they threaten the conceptual foundations of the field.',
+          anecdote: 'Ptolemaic astronomers added increasingly convoluted epicycles for centuries rather than considering that Earth moved.'
+        },
+        {
+          number: 2,
+          title: 'Crisis and the Emergence of Scientific Theories',
+          breakdown: 'The discovery of anomalies is not enough to destroy a paradigm. Scientists invent endless ad-hoc modifications to explain away contradictions until the crisis becomes intolerable.',
+          keyInsight: 'A paradigm is never discarded simply because it faces counter-instances; it is discarded only when an alternate paradigm appears to replace it.',
+          anecdote: 'Oxygen chemistry: Joseph Priestley discovered oxygen gas but called it "dephlogisticated air" until his death, unable to see through the phlogiston paradigm.'
+        },
+        {
+          number: 3,
+          title: 'Revolutions as Changes of World View (Gestalt Switch)',
+          breakdown: 'During scientific revolutions, scientists see new and different things when looking with familiar instruments in places they have looked before. It is an intellectual gestalt shift: like the optical illusion that switches from a duck to a rabbit.',
+          keyInsight: 'After a revolution, scientists work in a different world; the old language and questions become meaningless.',
+          anecdote: 'Before Copernicus, people looking at the sun saw a moving planet; after Copernicus, they saw a fixed star at the center of the solar system.'
+        }
+      ]
+    },
+    masterclass: {
+      dialecticCritique: {
+        authorBlindspots: 'Kuhn struggled to defend against charges of irrationalism. If successive paradigms are genuinely incommensurable, science cannot claim to be approaching objective truth about the physical universe.',
+        counterArguments: [
+          {
+            opposingThinker: 'Karl Popper (The Logic of Scientific Discovery)',
+            counterpoint: 'Science does not depend on dogmatic sociological consensus. Science is defined by falsification: any theory that is contradicted by empirical observation is discarded by rational scientists.'
+          },
+          {
+            opposingThinker: 'Steven Weinberg (Facing Up: Science and Its Cultural Adversaries)',
+            counterpoint: 'Newton’s physics was not replaced like an arbitrary political revolution; it remains an extraordinarily accurate low-velocity approximation of Einstein’s general relativity.'
+          }
+        ]
+      },
+      authorBiases: [
+        'Physics-Centric Historiography: Deriving a universal theory of human knowledge almost exclusively from the history of mechanics and optics.'
+      ],
+      caseStudies: [
+        {
+          entity: 'The Continental Drift Revolution (Geology, 1960s)',
+          scenario: 'Alfred Wegener proposed continental drift in 1912; geological academia mocked and blacklisted him for 50 years.',
+          outcome: 'In the 1960s, seafloor paleomagnetism proved plate tectonics; the old guard died off and geology underwent an overnight Kuhn paradigm shift.'
+        }
+      ],
+      actionPlaybook: [
+        {
+          step: 1,
+          action: 'Map the "Anomalies" in Your Domain',
+          executionDetail: 'Identify 3 customer complaints or market behaviors that your current company playbook labels as "outliers" or "user error." Treat them as the harbingers of an emergent paradigm.'
+        },
+        {
+          step: 2,
+          action: 'Prepare for Max Planck’s Principle',
+          executionDetail: 'Remember: "A new scientific truth does not triumph by convincing its opponents, but rather because its opponents eventually die." Stop trying to convert legacy incumbents; recruit the unindoctrinated generation.'
+        }
+      ],
+      socraticReflection: [
+        'What unexamined paradigm is your organization currently trying to defend by adding endless "epicycles" of complexity?',
+        'If your core industry assumption is as false as geocentric astronomy, what does the true universe look like?'
+      ]
+    },
+    keyQuotes: [
+      {
+        quote: 'When paradigms change, the world itself changes with them.',
+        context: 'On epistemic gestalt shifts.'
+      },
+      {
+        quote: 'No process yet disclosed by the historical study of scientific development at all resembles the methodological stereotype of falsification by direct comparison with nature.',
+        context: 'On the sociological reality of scientific belief.'
+      }
+    ]
+  },
+  {
+    id: 'muqaddimah-ibn-khaldun',
+    title: 'The Muqaddimah (مقدّمة ابن خلدون)',
+    subtitle: 'The Prolegomena to History, Cyclical Civilizations & Asabiyyah',
+    author: 'Ibn Khaldun (ابن خلدون)',
+    year: '1377 CE',
+    category: 'Ancient Texts & Classics',
+    textType: 'ancient',
+    originalLanguage: 'Classical Arabic (العربية الفصحى)',
+    philologicalApparatus: {
+      historicalEra: 'Late Medieval Islamic World (Hafsid / Marinid North Africa)',
+      civilizationalContext: 'Written in 1377 CE during a 6-month retreat in the fortress of Qalat Ibn Salama in modern Algeria following the Black Death.',
+      lineageImpact: 'Founded the modern disciplines of sociology, demography, historiography, and supply-side economics (pre-dating Adam Smith and Laffer by 400 years).',
+      originalScriptExcerpt: {
+        originalText: 'الظلم مؤذن بخراب العمران، والعدوان على أموال الناس يقطع آمالهم في تحصيلها وكسبها.',
+        language: 'Classical Arabic',
+        transliteration: 'Al-dhulm mu’dhinun bi-kharab al-‘umran, wa al-‘udwan ‘ala amwal al-nas yaqta‘u amalahum fi tahsiliha wa kasbiha.',
+        literalMeaning: 'Injustice heralds the ruin of civilization; aggression against people’s property destroys their hopes of acquiring and gaining wealth.'
+      }
+    },
+    rating: 4.96,
+    readTime: { spark: '1 min', core: '14 min', masterclass: '36 min' },
+    cover: {
+      bgGradient: 'from-[#1B1713] via-[#0E0C09] to-[#070504]',
+      accentColor: '#EAB308',
+      motif: 'The Desert Dune & Cyclical Empire Arc',
+      tagline: 'Civilizations, like individuals, have natural lifespans of birth, zenith, luxury, and inevitable collapse.'
+    },
+    spark: {
+      executiveThesis: 'Four centuries before the European Enlightenment, Ibn Khaldun discovered that human civilizations (Umran) operate according to natural scientific laws. The rise and fall of empires is driven by the dynamic tension between nomadic desert vigor and sedentary urban luxury. The supreme catalyst is Asabiyyah (عصبية)—social solidarity, mutual trust, and shared purpose. When Asabiyyah is high, a band of desert nomads can topple an empire; when luxury and excessive taxation rot Asabiyyah, the empire collapses within three to four generations.',
+      bottomLine: 'Organizations rise on high social cohesion and frugal discipline, peak at market dominance, and rot from internal bureaucracy, excessive taxation, and decadent complacency.',
+      threeGoldenRules: [
+        'The Asabiyyah Cycle: Group solidarity is forged in harsh adversity; comfortable luxury erodes trust and makes populations dependent on mercenaries.',
+        'The Khaldun-Laffer Tax Curve: At the start of a dynasty, taxation yields large revenue from low rates; at the end of a dynasty, taxation yields tiny revenue from exorbitant rates.',
+        'The Three-Generation Rule: The first generation builds the empire; the second generation maintains it out of memory; the third generation spends it on luxury and loses it.'
+      ],
+      coreMentalModel: {
+        name: 'The 4-Stage Civilizational Dynastic Cycle',
+        description: '1. Conquest (High Asabiyyah, frugal). 2. Consolidation (Monopoly of power, urban growth). 3. Zenith & Luxury (Monumental architecture, intellectual flourish). 4. Decadence & Collapse (Tax extortion, mercenary reliance, conquest by new outsiders).',
+        diagramType: 'flywheel'
+      }
+    },
+    core: {
+      chapters: [
+        {
+          number: 1,
+          title: 'The Science of Human Organization (Ilm al-Umran)',
+          breakdown: 'Historians record stories of battles and kings, but history is not mere storytelling; it is an analytical science that examines the social phenomena, cultural habits, and economic forces governing human association.',
+          keyInsight: 'Historical reports must be tested against what is physically, economically, and sociologically possible.',
+          anecdote: 'Ibn Khaldun debunked ancient chroniclers claiming an army of 600,000 Israelites marched through Sinai, proving the desert terrain could not physically provide water or transport for such numbers.'
+        },
+        {
+          number: 2,
+          title: 'Bedouin Society vs Sedentary Civilization',
+          breakdown: 'Desert dwellers are closer to natural virtue because their survival requires constant courage, mutual reliance, and ascetic simplicity. Urban dwellers become addicted to luxuries and rely on walls and paid guards.',
+          keyInsight: 'Luxury corrupts character; when an organization replaces missionary purpose with comfort and perks, its decline is mathematically guaranteed.',
+          anecdote: 'The Arab nomadic tribes sweeping out of the desert to conquer the thousand-year-old Persian and Byzantine empires.'
+        },
+        {
+          number: 3,
+          title: 'The Economics of Injustice & Taxation',
+          breakdown: 'When rulers raise tax rates excessively to fund bloated court bureaucracies, businesses lose incentive to invest. Economic activity shrinks, leading to lower tax revenues despite higher rates.',
+          keyInsight: 'Property rights and predictable, fair taxation are the indispensable prerequisites of all economic vitality.',
+          anecdote: 'Late-stage North African dynasties squeezing merchants with monopolies and extortion until trade routes collapsed.'
+        }
+      ]
+    },
+    masterclass: {
+      dialecticCritique: {
+        authorBlindspots: 'Ibn Khaldun’s cyclical model assumes technological and industrial capacity remains static; industrial capitalism and modern technological productivity can break out of the agrarian dynastic trap.',
+        counterArguments: [
+          {
+            opposingThinker: 'Max Weber (The Protestant Ethic)',
+            counterpoint: 'Cultural and religious values regarding capital accumulation and rationalized bureaucracy can sustain prosperity across centuries without cyclical collapse.'
+          }
+        ]
+      },
+      authorBiases: [
+        'Medieval Maghreb Experience: Observing the rapid rise and fall of tribal Berber dynasties (Almoravids, Almohads) in North Africa.'
+      ],
+      caseStudies: [
+        {
+          entity: 'Silicon Valley Big Tech Cultural Drift',
+          scenario: 'Early-stage tech startups (high Asabiyyah, shared equity, sleeping under desks) grow into trillion-dollar monopolies.',
+          outcome: 'Generation 3 employees treat the firm as a luxury resort with gourmet cafeterias and politicized bureaucracy, leaving the incumbent vulnerable to scrappy AI startups.'
+        }
+      ],
+      actionPlaybook: [
+        {
+          step: 1,
+          action: 'Measure Your Organization’s "Asabiyyah Ratio"',
+          executionDetail: 'Ask: "Do team members prioritize collective mission survival over individual bureaucratic empire-building?" If team members spend >30% of energy on internal politics, Asabiyyah is decaying.'
+        },
+        {
+          step: 2,
+          action: 'Institute Anti-Decadence Audits',
+          executionDetail: 'Every 12 months, eliminate ornamental overhead, redundant middle-management layers, and lavish perks that insulate leaders from frontline operational reality.'
+        }
+      ],
+      socraticReflection: [
+        'Which generation of the Khaldun cycle is your enterprise currently in: the Conquerors, the Maintainers, or the Spenders?',
+        'What shared existential purpose binds your team together when easy financial windfalls evaporate?'
+      ]
+    },
+    keyQuotes: [
+      {
+        quote: 'Injustice heralds the ruin of civilization.',
+        originalQuote: 'الظلم مؤذن بخراب العمران.',
+        originalLanguage: 'Classical Arabic',
+        context: 'Chapter 3: On property rights and economic ruin.'
+      },
+      {
+        quote: 'He who finds a new path is a pathfinder, even if the trail is lonely.',
+        context: 'On pioneer intellect.'
+      }
+    ]
   }
 ];
+
 

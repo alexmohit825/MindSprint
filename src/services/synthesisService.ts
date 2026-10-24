@@ -1,4 +1,4 @@
-import { BookSummary } from '../types';
+import { BookSummary, TextType } from '../types';
 import { CURATED_BOOKS } from '../data/curatedBooks';
 
 const LOCAL_STORAGE_KEY = 'mindsprint_custom_synthesized_books';
@@ -33,20 +33,27 @@ export class SynthesisService {
       book.title.toLowerCase().includes(q) ||
       book.author.toLowerCase().includes(q) ||
       book.category.toLowerCase().includes(q) ||
-      book.subtitle.toLowerCase().includes(q)
+      book.subtitle.toLowerCase().includes(q) ||
+      (book.originalLanguage && book.originalLanguage.toLowerCase().includes(q))
     );
   }
 
   /**
-   * Synthesize any book on Earth dynamically
+   * Synthesize any book, ancient text, academic treatise, or foreign work
    */
-  static async synthesizeBook(title: string, author?: string): Promise<BookSummary> {
+  static async synthesizeBook(
+    title: string,
+    author?: string,
+    targetLanguage: string = 'English',
+    textTypeHint: TextType | 'auto' = 'auto'
+  ): Promise<BookSummary> {
     const cleanTitle = title.trim();
     const cleanAuthor = author?.trim() || 'Author';
 
     // 1. Check existing catalog
     const existing = this.getAllBooks().find(
-      b => b.title.toLowerCase() === cleanTitle.toLowerCase()
+      b => b.title.toLowerCase() === cleanTitle.toLowerCase() &&
+           (!b.targetLanguage || b.targetLanguage.toLowerCase() === targetLanguage.toLowerCase())
     );
     if (existing) return existing;
 
@@ -55,7 +62,12 @@ export class SynthesisService {
       const response = await fetch('/api/synthesize', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: cleanTitle, author: cleanAuthor })
+        body: JSON.stringify({
+          title: cleanTitle,
+          author: cleanAuthor,
+          targetLanguage,
+          textTypeHint
+        })
       });
 
       if (response.ok) {
@@ -68,7 +80,7 @@ export class SynthesisService {
     }
 
     // 3. Resilient Client-Side High-Fidelity Synthesis Engine
-    const newBook = this.generateCognitiveSynthesis(cleanTitle, cleanAuthor);
+    const newBook = this.generateCognitiveSynthesis(cleanTitle, cleanAuthor, targetLanguage, textTypeHint);
     this.saveCustomBook(newBook);
     return newBook;
   }
@@ -82,10 +94,27 @@ export class SynthesisService {
     }
   }
 
-  private static generateCognitiveSynthesis(title: string, author: string): BookSummary {
+  private static generateCognitiveSynthesis(
+    title: string,
+    author: string,
+    targetLanguage: string = 'English',
+    textTypeHint: TextType | 'auto' = 'auto'
+  ): BookSummary {
     const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
     
-    // Determine dynamic aesthetic palette based on title hash
+    // Auto-detect ancient or academic indicators in title
+    const ancientKeywords = ['epic', 'dao', 'tao', 'gita', 'bible', 'homer', 'plato', 'aristotle', 'seneca', 'aurelius', 'confucius', 'iliad', 'odyssey', 'vedas', 'upanishads', 'quran', 'torah'];
+    const academicKeywords = ['treatise', 'structure', 'critique', 'inquiry', 'principles', 'revolutions', 'theory', 'foundations', 'mathematics', 'dynamics', 'physics'];
+
+    let inferredType: TextType = 'standard';
+    if (textTypeHint !== 'auto') {
+      inferredType = textTypeHint;
+    } else if (ancientKeywords.some(k => title.toLowerCase().includes(k) || author.toLowerCase().includes(k))) {
+      inferredType = 'ancient';
+    } else if (academicKeywords.some(k => title.toLowerCase().includes(k) || author.toLowerCase().includes(k))) {
+      inferredType = 'academic';
+    }
+
     const palettes = [
       { bg: 'from-[#1A1829] via-[#0E1018] to-[#08090D]', accent: '#818CF8', motif: 'Cognitive Hemisphere' },
       { bg: 'from-[#1E1B18] via-[#120F0C] to-[#0A0807]', accent: '#F59E0B', motif: 'Systemic Trajectory' },
@@ -97,22 +126,48 @@ export class SynthesisService {
     const hash = title.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
     const chosenPalette = palettes[hash % palettes.length];
 
+    const category = inferredType === 'ancient'
+      ? 'Ancient Texts & Classics'
+      : inferredType === 'academic'
+      ? 'Academic & Scientific Treatises'
+      : 'Strategic Intelligence';
+
     return {
       id,
       title,
       subtitle: `The Definitive Analytical Synthesis & Strategic Frameworks of ${title}`,
       author: author || 'Distinguished Scholar',
-      year: new Date().getFullYear(),
-      category: 'Strategic Intelligence',
+      year: inferredType === 'ancient' ? 'Classical Antiquity' : new Date().getFullYear(),
+      category,
+      textType: inferredType,
+      targetLanguage,
+      originalLanguage: inferredType === 'ancient' ? 'Classical Source Language' : 'Original Language',
       rating: 4.9,
       isCustomSynthesized: true,
-      readTime: { spark: '1 min', core: '12 min', masterclass: '35 min' },
+      readTime: { spark: '1 min', core: '14 min', masterclass: '38 min' },
       cover: {
         bgGradient: chosenPalette.bg,
         accentColor: chosenPalette.accent,
         motif: chosenPalette.motif,
-        tagline: `Unlocking the core operational models and contrarian thesis of ${title}.`
+        tagline: `Unlocking the core operational models, philological lineage, and contrarian thesis of ${title}.`
       },
+      philologicalApparatus: inferredType === 'ancient' ? {
+        historicalEra: 'Classical Civilizational Epoch',
+        civilizationalContext: `Composed during a formative period of civilizational transformation; explores timeless human dilemmas before modern institutional noise.`,
+        lineageImpact: `Formed foundational moral, philosophical, or strategic doctrine across millennia.`,
+        originalScriptExcerpt: {
+          originalText: `[Original Classical Inscription of ${title}]`,
+          language: 'Classical Source',
+          transliteration: 'Romanized phonetic reconstruction',
+          literalMeaning: 'Word-for-word hermeneutic breakdown'
+        }
+      } : undefined,
+      academicMethodology: inferredType === 'academic' ? {
+        formalFramework: 'Systematic Methodological & Theoretical Formalism',
+        empiricalValidity: 'Cross-validated through historical case analyses and foundational research literature.',
+        mathematicalFoundations: ['Formal proof schema and equilibrium conditions'],
+        limitations: 'Subject to paradigm boundaries and empirical domain scope constraints.'
+      } : undefined,
       spark: {
         executiveThesis: `${title} by ${author} deconstructs the prevailing orthodoxies of its field. The author demonstrates that sustainable competitive advantage and intellectual sovereignty stem not from brute effort or consensus conformity, but from mastering high-leverage mental models, systemic feedback loops, and asymmetric risk management.`,
         bottomLine: `Master the foundational primitives of ${title} to gain an unfair intellectual advantage; eliminate operational noise and double down on first-principles execution.`,

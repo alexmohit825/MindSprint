@@ -79,37 +79,38 @@ export const App: React.FC = () => {
           <div className="relative z-10 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E5C17D]/10 border border-[#E5C17D]/30 text-[#E5C17D] text-xs font-bold tracking-wide uppercase mb-4">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Next-Gen Executive Intelligence Platform</span>
+              <span>Universal Ancient Canon, Academic & Multilingual Synthesis</span>
             </div>
 
             <h1 className="font-serif text-3xl sm:text-5xl font-black text-white leading-tight tracking-tight">
-              Master Any Book in Minutes. <br />
-              <span className="gold-text-gradient">Zero Surface Summaries.</span>
+              Master Any Text in Minutes. <br />
+              <span className="gold-text-gradient">From Ancient Greek to Modern Treatises.</span>
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-gray-300 leading-relaxed font-light">
-              Engineered to outclass standard 15-minute apps. Toggle seamlessly between the 
-              <strong> 1-Minute Spark</strong>, <strong> 15-Minute Core Blink</strong>, and the definitive 
-              <strong> Shortform Masterclass</strong> featuring dialectic counter-arguments, author blind spots, and real-world implementation playbooks.
+              Engineered to outclass standard 15-minute apps. Synthesize non-fiction, 
+              <strong> ancient classical manuscripts</strong> (Greek, Latin, Classical Chinese, Arabic, Sanskrit), and 
+              <strong> dense academic treatises</strong> with bilingual philology, mathematical frameworks, and the definitive 
+              <strong> 40-Minute Shortform Masterclass</strong> in any language.
             </p>
 
             {/* Quick Metrics Bar */}
             <div className="mt-8 pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-medium">
               <div className="flex items-center gap-2 text-gray-300">
                 <Zap className="w-4 h-4 text-amber-400" />
-                <span>Sub-5s On-Demand Synthesis</span>
+                <span>Ancient Philology & Epigraphy</span>
               </div>
               <div className="flex items-center gap-2 text-gray-300">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>3-Tier Depth Switcher</span>
+                <span>Formal Academic Epistemology</span>
               </div>
               <div className="flex items-center gap-2 text-gray-300">
                 <Headphones className="w-4 h-4 text-sky-400" />
-                <span>Natural Studio Voice Audio</span>
+                <span>Multilingual Studio Narration</span>
               </div>
               <div className="flex items-center gap-2 text-gray-300">
                 <Compass className="w-4 h-4 text-purple-400" />
-                <span>Visual Mental Models</span>
+                <span>Bilingual Script Citations</span>
               </div>
             </div>
 

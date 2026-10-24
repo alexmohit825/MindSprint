@@ -1,4 +1,5 @@
 export type SynthesisDepth = 'spark' | 'core' | 'masterclass';
+export type TextType = 'standard' | 'ancient' | 'academic';
 
 export interface MentalModel {
   name: string;
@@ -13,6 +14,7 @@ export interface Chapter {
   breakdown: string;
   keyInsight: string;
   anecdote?: string;
+  originalCitation?: string;
 }
 
 export interface DialecticCounter {
@@ -32,13 +34,37 @@ export interface PlaybookStep {
   executionDetail: string;
 }
 
+export interface PhilologicalApparatus {
+  historicalEra: string;
+  civilizationalContext: string;
+  lineageImpact: string;
+  originalScriptExcerpt?: {
+    originalText: string;
+    language: string;
+    transliteration?: string;
+    literalMeaning: string;
+  };
+}
+
+export interface AcademicMethodology {
+  formalFramework: string;
+  empiricalValidity: string;
+  mathematicalFoundations?: string[];
+  limitations: string;
+}
+
 export interface BookSummary {
   id: string;
   title: string;
   subtitle: string;
   author: string;
-  year: number;
+  year: number | string; // Can be negative for BCE e.g. -400 or "c. 170 CE"
   category: string;
+  textType?: TextType;
+  originalLanguage?: string;
+  targetLanguage?: string;
+  philologicalApparatus?: PhilologicalApparatus;
+  academicMethodology?: AcademicMethodology;
   readTime: {
     spark: string;
     core: string;
@@ -75,6 +101,8 @@ export interface BookSummary {
   keyQuotes: Array<{
     quote: string;
     context: string;
+    originalQuote?: string;
+    originalLanguage?: string;
   }>;
   isCustomSynthesized?: boolean;
 }

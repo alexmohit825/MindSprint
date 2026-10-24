@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Sparkles, Compass, Bookmark, Volume2 } from 'lucide-react';
+import { Search, Sparkles, Compass, Bookmark, Volume2, Scroll, GraduationCap, Globe } from 'lucide-react';
 
 interface NavbarProps {
   searchQuery: string;
@@ -11,6 +11,8 @@ interface NavbarProps {
 
 const CATEGORIES = [
   'All Syntheses',
+  'Ancient Texts & Classics',
+  'Academic & Scientific Treatises',
   'Cognitive Psychology',
   'Productivity & Behavioral Design',
   'Strategy & Leadership',
@@ -45,7 +47,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   ENTERPRISE
                 </span>
               </div>
-              <p className="text-[11px] text-gray-400 tracking-wide hidden sm:block">Executive Book Synthesis & Intelligence</p>
+              <p className="text-[11px] text-gray-400 tracking-wide hidden sm:block">Universal Non-Fiction, Ancient Canon & Academic Intelligence</p>
             </div>
           </div>
 
@@ -55,7 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search any title, author, or mental model..."
+                placeholder="Search any title, author, Greek/Latin classic, or treatise..."
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
                 className="w-full bg-[#121520] border border-white/10 rounded-xl pl-10 pr-4 py-2 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-[#E5C17D]/60 focus:ring-1 focus:ring-[#E5C17D]/40 transition"
@@ -70,7 +72,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#E5C17D] via-[#DFB265] to-[#B3873B] text-[#090A0F] font-semibold text-xs sm:text-sm tracking-wide shadow-lg shadow-[#E5C17D]/20 hover:brightness-110 active:scale-95 transition cursor-pointer"
             >
               <Sparkles className="w-4 h-4 text-[#090A0F]" />
-              <span className="font-bold">Synthesize Any Book</span>
+              <span className="font-bold">Synthesize Any Work</span>
             </button>
           </div>
 
@@ -82,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type="text"
-              placeholder="Search library or synthesize any title..."
+              placeholder="Search library, Greek/Latin classics, or treatises..."
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               className="w-full bg-[#121520] border border-white/10 rounded-xl pl-10 pr-4 py-2 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-[#E5C17D]/60"
@@ -96,13 +98,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               key={cat}
               onClick={() => onSelectCategory(cat)}
-              className={`whitespace-nowrap px-3.5 py-1.5 rounded-lg font-medium transition cursor-pointer ${
+              className={`whitespace-nowrap px-3.5 py-1.5 rounded-lg font-medium transition cursor-pointer flex items-center gap-1.5 ${
                 selectedCategory === cat
                   ? 'bg-[#E5C17D]/20 text-[#E5C17D] border border-[#E5C17D]/40 shadow-sm'
                   : 'text-gray-400 hover:text-gray-200 hover:bg-white/5 border border-transparent'
               }`}
             >
-              {cat}
+              {cat === 'Ancient Texts & Classics' && <Scroll className="w-3.5 h-3.5 text-amber-400" />}
+              {cat === 'Academic & Scientific Treatises' && <GraduationCap className="w-3.5 h-3.5 text-sky-400" />}
+              <span>{cat}</span>
             </button>
           ))}
         </div>

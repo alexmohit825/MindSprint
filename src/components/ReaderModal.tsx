@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BookSummary, SynthesisDepth } from '../types';
-import { X, Zap, Clock, ShieldCheck, Headphones, Share2, CheckCircle2, Circle, AlertCircle, Quote } from 'lucide-react';
+import { X, Zap, Clock, ShieldCheck, Headphones, Share2, CheckCircle2, Circle, AlertCircle, Quote, Scroll, GraduationCap, Globe, BookOpen } from 'lucide-react';
 import { MentalModelViewer } from './MentalModelViewer';
 import { QuoteCardModal } from './QuoteCardModal';
 
@@ -38,10 +38,27 @@ export const ReaderModal: React.FC<ReaderModalProps> = ({ book, onClose, onStart
         {/* Sticky Header with 3-Tier Segmented Control */}
         <div className="sticky top-0 z-30 w-full glass-panel-elevated bg-[#0C0E16]/95 border-b border-white/10 px-6 py-4 flex items-center justify-between gap-4">
           
-          <div className="flex items-center gap-3 min-w-0">
-            <span className="text-xs uppercase font-bold tracking-widest text-[#E5C17D] truncate">
-              {book.category}
-            </span>
+          <div className="flex items-center gap-2.5 min-w-0">
+            {book.textType === 'ancient' ? (
+              <span className="flex items-center gap-1 text-[11px] uppercase font-bold tracking-widest text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full border border-amber-400/20">
+                <Scroll className="w-3.5 h-3.5" /> Ancient Classic
+              </span>
+            ) : book.textType === 'academic' ? (
+              <span className="flex items-center gap-1 text-[11px] uppercase font-bold tracking-widest text-sky-400 bg-sky-400/10 px-2.5 py-0.5 rounded-full border border-sky-400/20">
+                <GraduationCap className="w-3.5 h-3.5" /> Academic Treatise
+              </span>
+            ) : (
+              <span className="text-xs uppercase font-bold tracking-widest text-[#E5C17D] truncate">
+                {book.category}
+              </span>
+            )}
+
+            {book.originalLanguage && (
+              <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-gray-400 bg-white/5 px-2 py-0.5 rounded border border-white/5 font-mono">
+                <Globe className="w-3 h-3 text-gray-400" />
+                {book.originalLanguage}
+              </span>
+            )}
           </div>
 
           {/* The 3-Tier Depth Switcher */}
@@ -106,10 +123,13 @@ export const ReaderModal: React.FC<ReaderModalProps> = ({ book, onClose, onStart
         <div className="p-6 sm:p-12 overflow-y-auto max-h-[85vh]">
           
           {/* Book Header Banner */}
-          <div className="mb-10 pb-8 border-b border-white/10">
-            <span className="text-xs uppercase tracking-widest font-mono text-[#E5C17D] font-bold">
-              UNOFFICIAL ANALYTICAL SYNTHESIS • {book.year}
-            </span>
+          <div className="mb-8 pb-8 border-b border-white/10">
+            <div className="flex items-center gap-2 text-xs uppercase tracking-widest font-mono text-[#E5C17D] font-bold">
+              <span>UNOFFICIAL CRITICAL SYNTHESIS</span>
+              <span>•</span>
+              <span>{book.year}</span>
+            </div>
+
             <h1 className="font-serif text-3xl sm:text-5xl font-black text-white mt-2 leading-tight">
               {book.title}
             </h1>
@@ -124,6 +144,85 @@ export const ReaderModal: React.FC<ReaderModalProps> = ({ book, onClose, onStart
               </span>
             </div>
           </div>
+
+          {/* ANCIENT TEXT PHILOLOGICAL CARD (IF ANCIENT) */}
+          {book.philologicalApparatus && (
+            <div className="mb-10 p-6 rounded-2xl bg-gradient-to-br from-[#1C1710] to-[#0E0C08] border border-amber-500/30 shadow-xl">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-amber-400 mb-3">
+                <Scroll className="w-4 h-4 text-amber-400" />
+                <span>Philological Apparatus & Civilizational Context</span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-300 mb-4">
+                <div>
+                  <span className="font-bold text-gray-400 block mb-1">HISTORICAL ERA:</span>
+                  <p>{book.philologicalApparatus.historicalEra}</p>
+                </div>
+                <div>
+                  <span className="font-bold text-gray-400 block mb-1">CIVILIZATIONAL CONTEXT:</span>
+                  <p>{book.philologicalApparatus.civilizationalContext}</p>
+                </div>
+              </div>
+
+              <div className="text-xs text-gray-300 mb-4">
+                <span className="font-bold text-gray-400 block mb-1">2,000-YEAR LINEAGE IMPACT:</span>
+                <p>{book.philologicalApparatus.lineageImpact}</p>
+              </div>
+
+              {book.philologicalApparatus.originalScriptExcerpt && (
+                <div className="p-4 rounded-xl bg-black/50 border border-amber-500/20">
+                  <span className="text-[10px] font-bold font-mono uppercase text-amber-400 tracking-wider">
+                    Original Source Inscription ({book.philologicalApparatus.originalScriptExcerpt.language})
+                  </span>
+                  <p className="font-serif text-lg sm:text-xl text-amber-100 my-2 leading-relaxed">
+                    "{book.philologicalApparatus.originalScriptExcerpt.originalText}"
+                  </p>
+                  {book.philologicalApparatus.originalScriptExcerpt.transliteration && (
+                    <p className="text-xs text-gray-400 italic font-mono mb-1">
+                      Transliteration: {book.philologicalApparatus.originalScriptExcerpt.transliteration}
+                    </p>
+                  )}
+                  <p className="text-xs text-gray-300">
+                    <strong>Literal Translation:</strong> {book.philologicalApparatus.originalScriptExcerpt.literalMeaning}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* ACADEMIC METHODOLOGY CARD (IF ACADEMIC) */}
+          {book.academicMethodology && (
+            <div className="mb-10 p-6 rounded-2xl bg-gradient-to-br from-[#101724] to-[#080C14] border border-sky-500/30 shadow-xl">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-sky-400 mb-3">
+                <GraduationCap className="w-4 h-4 text-sky-400" />
+                <span>Formal Academic Epistemology & Methodology</span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-300 mb-4">
+                <div>
+                  <span className="font-bold text-gray-400 block mb-1">THEORETICAL FRAMEWORK:</span>
+                  <p>{book.academicMethodology.formalFramework}</p>
+                </div>
+                <div>
+                  <span className="font-bold text-gray-400 block mb-1">EMPIRICAL REPLICATION STATUS:</span>
+                  <p>{book.academicMethodology.empiricalValidity}</p>
+                </div>
+              </div>
+
+              {book.academicMethodology.mathematicalFoundations && book.academicMethodology.mathematicalFoundations.length > 0 && (
+                <div className="p-3.5 rounded-xl bg-black/40 border border-sky-500/20 mb-3 text-xs font-mono text-sky-200">
+                  <span className="font-bold text-gray-400 block mb-1 font-sans">MATHEMATICAL / FORMAL CORE:</span>
+                  {book.academicMethodology.mathematicalFoundations.map((f, i) => (
+                    <div key={i} className="py-0.5">• {f}</div>
+                  ))}
+                </div>
+              )}
+
+              <p className="text-xs text-gray-400 italic">
+                <strong>Methodological Boundary:</strong> {book.academicMethodology.limitations}
+              </p>
+            </div>
+          )}
 
           {/* TIER 1: THE SPARK (1-Min Flash) */}
           {depth === 'spark' && (
@@ -185,6 +284,11 @@ export const ReaderModal: React.FC<ReaderModalProps> = ({ book, onClose, onStart
                     <h3 className="font-serif text-2xl font-bold text-white">
                       {ch.title}
                     </h3>
+                    {ch.originalCitation && (
+                      <span className="text-xs text-gray-400 font-mono ml-auto">
+                        [{ch.originalCitation}]
+                      </span>
+                    )}
                   </div>
 
                   <p className="font-serif text-base sm:text-lg text-gray-300 leading-relaxed mb-4">
@@ -251,7 +355,7 @@ export const ReaderModal: React.FC<ReaderModalProps> = ({ book, onClose, onStart
 
               {/* Author Biases */}
               <section>
-                <h3 className="font-serif text-xl font-bold text-white mb-3">Cognitive Biases of the Author</h3>
+                <h3 className="font-serif text-xl font-bold text-white mb-3">Cognitive Biases & Worldview Constraints</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {book.masterclass.authorBiases.map((bias, idx) => (
                     <div key={idx} className="p-4 rounded-xl bg-white/5 border border-white/5 text-xs sm:text-sm text-gray-300">
@@ -263,7 +367,7 @@ export const ReaderModal: React.FC<ReaderModalProps> = ({ book, onClose, onStart
 
               {/* Real World Case Studies */}
               <section>
-                <h3 className="font-serif text-xl font-bold text-white mb-4">Empirical Case Studies</h3>
+                <h3 className="font-serif text-xl font-bold text-white mb-4">Empirical & Historical Case Studies</h3>
                 <div className="space-y-4">
                   {book.masterclass.caseStudies.map((cs, idx) => (
                     <div key={idx} className="p-5 rounded-2xl bg-[#121522] border border-white/10">
@@ -332,12 +436,12 @@ export const ReaderModal: React.FC<ReaderModalProps> = ({ book, onClose, onStart
             </div>
           )}
 
-          {/* Key Quotes Bar */}
+          {/* Key Quotes Bar with Dual-Language Source Presentation */}
           <div className="mt-14 pt-8 border-t border-white/10">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-serif text-xl font-bold text-white flex items-center gap-2">
                 <Quote className="w-5 h-5 text-[#E5C17D]" />
-                <span>Golden Quotations</span>
+                <span>Golden Quotations & Classical Excerpts</span>
               </h3>
               <span className="text-xs text-gray-400">Tap quote to export luxury card</span>
             </div>
@@ -349,6 +453,14 @@ export const ReaderModal: React.FC<ReaderModalProps> = ({ book, onClose, onStart
                   onClick={() => setSelectedQuote({ quote: kq.quote, author: book.author })}
                   className="group p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-[#E5C17D]/40 transition cursor-pointer flex flex-col justify-between"
                 >
+                  {kq.originalQuote && (
+                    <p className="font-serif text-sm text-amber-200/90 mb-2 leading-relaxed">
+                      "{kq.originalQuote}"
+                      <span className="block text-[10px] text-gray-400 font-mono mt-0.5">
+                        [{kq.originalLanguage || 'Original Script'}]
+                      </span>
+                    </p>
+                  )}
                   <p className="font-serif text-sm sm:text-base text-gray-200 italic leading-relaxed">
                     “{kq.quote}”
                   </p>
