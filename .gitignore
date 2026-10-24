@@ -27,3 +27,5 @@ dist-ssr
 .env
 .env.production
 AuthKey_*.p8
+
+.dev.vars
