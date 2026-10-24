@@ -1,0 +1,21 @@
+{
+  "app_name": "MindSprint: Book Summaries",
+  "subtitle": "Fast Executive Deep Dives",
+  "bundle_id": "com.alexmohit.mindsprint",
+  "sku": "MINDSPRINT001",
+  "primary_category": "BOOKS",
+  "secondary_category": "EDUCATION",
+  "price_tier": "0",
+  "copyright": "2026 A. Alex Mohit",
+  "description": "MindSprint is the premier executive book synthesis and cognitive intelligence platform, engineered for leaders, entrepreneurs, and high-performance thinkers.\n\nWhile conventional apps condense books into superficial bullet points, MindSprint provides a revolutionary 3-Tier Depth Switcher:\n\n1. THE SPARK (1 MINUTE): The core executive thesis, the 30-second bottom line, and 3 non-negotiable rules.\n2. THE CORE (15 MINUTES): Chapter-by-chapter structural breakdowns, operational insights, and mental models.\n3. THE MASTERCLASS (40 MINUTES): The definitive deep dive featuring dialectic critiques, author blind spots, counter-arguments from opposing scholars, real-world case studies, and an actionable implementation playbook.\n\nINFINITE SYNTHESIS: Zero catalog limits. Synthesize any non-fiction book, biography, or strategic work on demand with AI-assisted structural extraction.\n\nSTUDIO AUDIO NARRATION: Seamlessly listen with natural studio voices, customizable playback speeds (0.75x–2.0x), and synchronized transcript reading.\n\nEXECUTIVE QUOTE STUDIO: Transform timeless wisdom into luxury, high-resolution cards ready for presentation decks or social sharing.",
+  "keywords": "mind,sprint,reading,blinkist,shortform,key,insights,notes,nonfiction,habits,audiobook,learn,growth",
+  "support_url": "https://mindsprint.pages.dev/support",
+  "marketing_url": "https://mindsprint.pages.dev",
+  "privacy_policy_url": "https://mindsprint.pages.dev/privacy",
+  "review_contact": {
+    "first_name": "Alex",
+    "last_name": "Mohit",
+    "email": "mohalex@gmail.com",
+    "phone": "+12066795710"
+  }
+}

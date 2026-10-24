@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-obsidian: #08090E;
+    --bg-surface: #12151E;
+    --bg-surface-elevated: #1B1F2C;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-gold: rgba(229, 193, 125, 0.3);
+    --gold-primary: #E5C17D;
+    --gold-light: #F9E7BA;
+    --gold-dark: #A9833D;
+    --text-primary: #F9FAFB;
+    --text-secondary: #9CA3AF;
+    --text-muted: #6B7280;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-obsidian);
+    color: var(--text-primary);
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
+  }
+
+  .font-brand {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.12em;
+  }
+}
+
+/* Glassmorphism Surface Styles */
+.glass-panel {
+  background: rgba(18, 21, 30, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+}
+
+.glass-panel-elevated {
+  background: rgba(27, 31, 44, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+}
+
+.glass-gold-glow {
+  box-shadow: 0 0 35px -5px rgba(229, 193, 125, 0.15);
+}
+
+/* Luxury Gold Foil Text */
+.gold-text-gradient {
+  background: linear-gradient(135deg, #FFF5DF 0%, #E5C17D 50%, #B88B42 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 3D Realistic Book Perspective */
+.book-spine-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.book-spine-3d:hover {
+  transform: translateY(-8px) scale(1.02) rotateY(-4deg);
+}
+
+.book-spine-3d::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.02) 40%, rgba(0,0,0,0.3) 100%);
+  pointer-events: none;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+/* Smooth custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08090E;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(229, 193, 125, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(229, 193, 125, 0.4);
+}
