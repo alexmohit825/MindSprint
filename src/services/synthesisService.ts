@@ -1,5 +1,6 @@
 import { BookSummary, TextType } from '../types';
 import { CURATED_BOOKS } from '../data/curatedBooks';
+import { fetchBookCover } from './coverService';
 
 const LOCAL_STORAGE_KEY = 'mindsprint_custom_synthesized_books';
 
@@ -72,6 +73,10 @@ export class SynthesisService {
 
       if (response.ok) {
         const book: BookSummary = await response.json();
+        if (!book.cover.coverUrl) {
+          const coverUrl = await fetchBookCover(cleanTitle, cleanAuthor);
+          if (coverUrl) book.cover.coverUrl = coverUrl;
+        }
         this.saveCustomBook(book);
         return book;
       }
@@ -81,6 +86,10 @@ export class SynthesisService {
 
     // 3. Resilient Client-Side High-Fidelity Synthesis Engine
     const newBook = this.generateCognitiveSynthesis(cleanTitle, cleanAuthor, targetLanguage, textTypeHint);
+    try {
+      const coverUrl = await fetchBookCover(cleanTitle, cleanAuthor);
+      if (coverUrl) newBook.cover.coverUrl = coverUrl;
+    } catch (_) {}
     this.saveCustomBook(newBook);
     return newBook;
   }

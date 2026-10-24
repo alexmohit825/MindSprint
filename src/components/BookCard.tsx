@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BookSummary } from '../types';
 import { Star, Clock, Headphones, ArrowRight, ShieldCheck, Zap, Scroll, GraduationCap } from 'lucide-react';
+import { fetchBookCover } from '../services/coverService';
 
 interface BookCardProps {
   book: BookSummary;
@@ -9,6 +10,18 @@ interface BookCardProps {
 }
 
 export const BookCard: React.FC<BookCardProps> = ({ book, onOpen, onQuickPlay }) => {
+  const [coverUrl, setCoverUrl] = useState<string | null>(book.cover?.coverUrl || null);
+  const [imgError, setImgError] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!coverUrl && !imgError) {
+      fetchBookCover(book.title, book.author, book.id).then(url => {
+        if (url) setCoverUrl(url);
+      });
+    }
+  }, [book.id, book.title, book.author, coverUrl, imgError]);
+
   return (
     <div
       onClick={() => onOpen(book)}
@@ -24,37 +37,66 @@ export const BookCard: React.FC<BookCardProps> = ({ book, onOpen, onQuickPlay })
         />
 
         {/* The 3D Book Object */}
-        <div className="book-spine-3d relative w-36 h-48 rounded-r-md rounded-l-xs shadow-xl p-4 flex flex-col justify-between overflow-hidden border border-black/10 dark:border-white/10"
-             style={{ background: `linear-gradient(145deg, #181922 0%, #0B0C12 100%)` }}>
-          
-          {/* Embossed Corner Accent Line */}
-          <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-white/10 to-transparent pointer-events-none" />
-          
-          {/* Top Foil Tag */}
-          <div className="flex items-center justify-between z-10">
-            <span className="text-[8px] uppercase tracking-widest font-mono text-gray-400">MindSprint</span>
-            <span className="text-[8px] font-bold px-1.5 py-0.5 rounded bg-white/10 text-gray-300">
-              {book.year}
-            </span>
-          </div>
+        <div 
+          className="book-spine-3d relative w-36 h-50 rounded-r-md rounded-l-xs shadow-2xl flex flex-col justify-between overflow-hidden border border-black/20 dark:border-white/10 group-hover:scale-105 group-hover:-translate-y-1 transition-all duration-300"
+          style={{ background: `linear-gradient(145deg, #181922 0%, #0B0C12 100%)` }}
+        >
+          {/* Authentic Real Cover Image */}
+          {coverUrl && !imgError ? (
+            <div className="absolute inset-0 z-0 overflow-hidden bg-stone-900">
+              <img
+                src={coverUrl}
+                alt={book.title}
+                loading="lazy"
+                onLoad={() => setImgLoaded(true)}
+                onError={() => setImgError(true)}
+                className={`w-full h-full object-cover transition-opacity duration-500 ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
+              />
+              {/* Spine Crease & Realistic Shading */}
+              <div className="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-r from-black/70 via-black/30 to-transparent pointer-events-none z-10" />
+              {/* Outer Page Edge / Hardcover Rim */}
+              <div className="absolute right-0 top-0 bottom-0 w-1 bg-gradient-to-l from-white/20 to-transparent pointer-events-none z-10" />
+              {/* Soft Surface Sheen */}
+              <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/15 to-transparent pointer-events-none z-10" />
+              {/* Bottom Subtle Title Overlay for instant readability */}
+              <div className="absolute bottom-0 left-0 right-0 p-2.5 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10">
+                <p className="text-[9px] font-bold text-white line-clamp-1 drop-shadow-md">{book.title}</p>
+                <p className="text-[8px] text-[#E5C17D] font-medium line-clamp-1">{book.author}</p>
+              </div>
+            </div>
+          ) : (
+            /* Luxury Gold-Foil Embossed Fallback Jacket */
+            <div className="p-4 flex flex-col justify-between h-full w-full">
+              {/* Embossed Corner Accent Line */}
+              <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-white/10 to-transparent pointer-events-none" />
+              
+              {/* Top Foil Tag */}
+              <div className="flex items-center justify-between z-10">
+                <span className="text-[8px] uppercase tracking-widest font-mono text-gray-400">MindSprint</span>
+                <span className="text-[8px] font-bold px-1.5 py-0.5 rounded bg-white/10 text-gray-300">
+                  {book.year}
+                </span>
+              </div>
 
-          {/* Book Title & Author in Center */}
-          <div className="my-auto z-10">
-            <h3 className="font-serif text-sm font-bold text-white line-clamp-2 leading-tight drop-shadow-sm">
-              {book.title}
-            </h3>
-            <p className="text-[10px] text-[#E5C17D] mt-1 font-medium tracking-wide">
-              {book.author}
-            </p>
-          </div>
+              {/* Book Title & Author in Center */}
+              <div className="my-auto z-10">
+                <h3 className="font-serif text-sm font-bold text-white line-clamp-2 leading-tight drop-shadow-sm">
+                  {book.title}
+                </h3>
+                <p className="text-[10px] text-[#E5C17D] mt-1 font-medium tracking-wide">
+                  {book.author}
+                </p>
+              </div>
 
-          {/* Bottom Motif Badge */}
-          <div className="z-10 pt-2 border-t border-white/10 flex items-center justify-between">
-            <span className="text-[8px] text-gray-400 italic line-clamp-1">
-              {book.cover.motif}
-            </span>
-            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: book.cover.accentColor }} />
-          </div>
+              {/* Bottom Motif Badge */}
+              <div className="z-10 pt-2 border-t border-white/10 flex items-center justify-between">
+                <span className="text-[8px] text-gray-400 italic line-clamp-1">
+                  {book.cover.motif}
+                </span>
+                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: book.cover.accentColor }} />
+              </div>
+            </div>
+          )}
 
         </div>
 
@@ -98,33 +140,21 @@ export const BookCard: React.FC<BookCardProps> = ({ book, onOpen, onQuickPlay })
           <h2 className="font-serif text-lg font-bold text-gray-900 dark:text-white group-hover:text-[#C59B37] dark:group-hover:text-[#E5C17D] transition-colors line-clamp-1">
             {book.title}
           </h2>
-          <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 mt-1.5 leading-relaxed">
-            {book.spark.executiveThesis}
+          <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mt-1 leading-relaxed">
+            {book.subtitle}
           </p>
         </div>
 
-        {/* 3-Tier Depth Indicator Bar */}
-        <div className="mt-5 pt-3.5 border-t border-black/[0.06] dark:border-white/5 flex items-center justify-between text-[11px]">
-          <div className="flex items-center gap-3 text-gray-500 dark:text-gray-400">
-            <span className="flex items-center gap-1" title="1-Minute Flash Read">
-              <Zap className="w-3.5 h-3.5 text-amber-500" />
-              <span>{book.readTime.spark}</span>
-            </span>
-            <span className="text-gray-300 dark:text-gray-600">•</span>
-            <span className="flex items-center gap-1" title="15-Minute Core Blink">
-              <Clock className="w-3.5 h-3.5 text-blue-500" />
-              <span>{book.readTime.core}</span>
-            </span>
-            <span className="text-gray-300 dark:text-gray-600">•</span>
-            <span className="flex items-center gap-1" title="Masterclass Deep Dive">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-              <span>Masterclass</span>
-            </span>
+        {/* Read Time & CTA */}
+        <div className="pt-4 mt-4 border-t border-black/[0.06] dark:border-white/5 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5" />
+            <span>{book.readTime.core}</span>
           </div>
 
-          <div className="text-gray-600 dark:text-gray-400 group-hover:text-[#C59B37] dark:group-hover:text-[#E5C17D] transition flex items-center gap-1 font-semibold">
-            <span>Read</span>
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition" />
+          <div className="flex items-center gap-1 text-[#C59B37] dark:text-[#E5C17D] font-semibold group-hover:translate-x-1 transition-transform">
+            <span>Synthesize</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </div>
         </div>
 

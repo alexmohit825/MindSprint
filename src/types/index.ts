@@ -77,6 +77,7 @@ export interface BookSummary {
     motif: string;
     tagline: string;
     plateUrl?: string;
+    coverUrl?: string;
   };
   spark: {
     executiveThesis: string;

@@ -14,7 +14,8 @@ export const CURATED_BOOKS: BookSummary[] = [
       bgGradient: 'from-[#1A1829] via-[#0E1018] to-[#08090D]',
       accentColor: '#818CF8',
       motif: 'Dual Cognitive Hemisphere',
-      tagline: 'System 1 intuit, System 2 deliberate.'
+      tagline: 'System 1 intuit, System 2 deliberate.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/13290711-L.jpg'
     },
     spark: {
       executiveThesis: 'Human decision-making is governed by two fundamentally distinct modes of thought: System 1 (fast, effortless, associative, emotional, and error-prone) and System 2 (slow, deliberative, logical, calculating, but inherently lazy). Left unmonitored, System 1 substitutes difficult questions with easy heuristics, leading to systematic cognitive biases.',
@@ -143,7 +144,8 @@ export const CURATED_BOOKS: BookSummary[] = [
       bgGradient: 'from-[#1E1B18] via-[#120F0C] to-[#0A0807]',
       accentColor: '#F59E0B',
       motif: '1% Compounding Trajectory',
-      tagline: 'You do not rise to your goals; you fall to your systems.'
+      tagline: 'You do not rise to your goals; you fall to your systems.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/12539702-L.jpg'
     },
     spark: {
       executiveThesis: 'True behavioral change is not the result of willpower or moonshot goals, but the compound interest of tiny 1% daily system improvements. Habits are the brain’s automated solutions to recurring problems. By redesigning your physical environment and identity, habits stick automatically.',
@@ -271,7 +273,8 @@ export const CURATED_BOOKS: BookSummary[] = [
       bgGradient: 'from-[#121624] via-[#0A0D17] to-[#05070B]',
       accentColor: '#38BDF8',
       motif: 'The 5-Step Evolutionary Loop',
-      tagline: 'Pain + Reflection = Progress.'
+      tagline: 'Pain + Reflection = Progress.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/8315355-L.jpg'
     },
     spark: {
       executiveThesis: 'Reality is a giant machine operating on cause-and-effect relationships. To thrive, you must discover reality as it truly is, not as you wish it to be. By operating with radical truth, radical transparency, and idea meritocracy with believability-weighted decision-making, organizations can eliminate ego and make optimal choices.',
@@ -399,7 +402,8 @@ export const CURATED_BOOKS: BookSummary[] = [
       bgGradient: 'from-[#1A1215] via-[#0E0B0D] to-[#070506]',
       accentColor: '#EC4899',
       motif: 'Singular Vertical Progression',
-      tagline: 'Competition is for losers. Aim for monopoly.'
+      tagline: 'Competition is for losers. Aim for monopoly.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/9002334-L.jpg'
     },
     spark: {
       executiveThesis: 'Every moment in business happens only once. The next Bill Gates will not build an operating system. Doing what someone else already knows how to do takes the world from 1 to n (horizontal globalization). Creating something new takes the world from 0 to 1 (vertical technology). To build enduring value, a company must achieve a creative monopoly by solving a unique problem in a small market and scaling out.',
@@ -527,7 +531,8 @@ export const CURATED_BOOKS: BookSummary[] = [
       bgGradient: 'from-[#0D151F] via-[#080D14] to-[#04070A]',
       accentColor: '#38BDF8',
       motif: 'The Monastic Cognitive Funnel',
-      tagline: 'Clarity about what matters provides clarity about what does not.'
+      tagline: 'Clarity about what matters provides clarity about what does not.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/7988607-L.jpg'
     },
     spark: {
       executiveThesis: 'The ability to perform deep work—professional activities conducted in a state of distraction-free concentration that push your cognitive capabilities to their limit—is becoming increasingly rare at the exact same time it is becoming increasingly valuable in our economy. Those who cultivate this skill will thrive; those who remain trapped in shallow connectivity will be replaced by machines or commoditized.',
@@ -636,7 +641,8 @@ export const CURATED_BOOKS: BookSummary[] = [
       bgGradient: 'from-[#141C16] via-[#0C120D] to-[#060907]',
       accentColor: '#10B981',
       motif: 'The Compounding Ledger',
-      tagline: 'Doing well with money has a little to do with how smart you are and a lot to do with how you behave.'
+      tagline: 'Doing well with money has a little to do with how smart you are and a lot to do with how you behave.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/10389354-L.jpg'
     },
     spark: {
       executiveThesis: 'Financial success is not a hard science like physics or engineering; it is a soft skill where how you behave is far more important than what you know. Most people fail financially not because they lack analytical intelligence, but because of emotional insecurity, lifestyle creep, and inability to handle volatility and tail events.',
@@ -745,7 +751,8 @@ export const CURATED_BOOKS: BookSummary[] = [
       bgGradient: 'from-[#191414] via-[#100C0C] to-[#080606]',
       accentColor: '#EF4444',
       motif: 'Hydra & Convex Transformation',
-      tagline: 'Wind extinguishes a candle and energizes fire.'
+      tagline: 'Wind extinguishes a candle and energizes fire.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/9180157-L.jpg'
     },
     spark: {
       executiveThesis: 'Some things benefit from shocks; they thrive and grow when exposed to volatility, randomness, disorder, and stressors. Taleb coined the word "antifragile" because there was no word in any human language for the exact opposite of fragile (robust or resilient merely resists shocks and stays the same; the antifragile gets better).',
@@ -854,7 +861,8 @@ export const CURATED_BOOKS: BookSummary[] = [
       bgGradient: 'from-[#171A21] via-[#0E1015] to-[#07080A]',
       accentColor: '#60A5FA',
       motif: 'The Managerial Output Gear',
-      tagline: 'A manager’s output = the output of his organization + the output of the neighboring organizations under his influence.'
+      tagline: 'A manager’s output = the output of his organization + the output of the neighboring organizations under his influence.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/421244-L.jpg'
     },
     spark: {
       executiveThesis: 'The output of a manager is the output of the organizational units under their supervision or influence. Management is not about personal heroism; it is about applying leverage to increase the productivity and speed of the entire team through training, motivation, and operational engineering.',
@@ -957,7 +965,8 @@ export const CURATED_BOOKS: BookSummary[] = [
       bgGradient: 'from-[#1C1813] via-[#100D09] to-[#070503]',
       accentColor: '#D97706',
       motif: 'The Directional Vector Arrow',
-      tagline: 'Less, but better.'
+      tagline: 'Less, but better.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/7285986-L.jpg'
     },
     spark: {
       executiveThesis: 'The way of the Essentialist isn’t about how to get more things done; it’s about how to get the right things done. It doesn’t mean just doing less for the sake of less either. It is about making the wisest possible investment of your time and energy in order to operate at our highest point of contribution by doing only what is essential.',
@@ -1059,7 +1068,8 @@ export const CURATED_BOOKS: BookSummary[] = [
       bgGradient: 'from-[#19151A] via-[#0E0C0F] to-[#070507]',
       accentColor: '#A855F7',
       motif: 'The Intersubjective Myth',
-      tagline: 'Homo sapiens rules the world because it is the only animal that can believe in things that exist purely in its imagination.'
+      tagline: 'Homo sapiens rules the world because it is the only animal that can believe in things that exist purely in its imagination.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/8634250-L.jpg'
     },
     spark: {
       executiveThesis: '100,000 years ago, Homo sapiens was an insignificant ape minding its own business in a corner of Africa. Today, we are the masters of the planet. Sapiens conquered the Earth not because of individual strength or intellect, but because of our unique ability to cooperate flexibly in large numbers—a feat made possible exclusively through our shared belief in intersubjective fictional myths (money, nations, human rights, corporations).',
@@ -1174,7 +1184,8 @@ export const CURATED_BOOKS: BookSummary[] = [
       bgGradient: 'from-[#1B1917] via-[#100E0C] to-[#070605]',
       accentColor: '#D97706',
       motif: 'The Roman Imperial Eagle & Inward Citadel',
-      tagline: 'You have power over your mind, not outside events. Realize this, and you will find strength.'
+      tagline: 'You have power over your mind, not outside events. Realize this, and you will find strength.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/13202688-L.jpg'
     },
     spark: {
       executiveThesis: 'Written as private nocturnal notes to himself with no intention of publication, Marcus Aurelius articulates the ultimate doctrine of Stoic mental sovereignty: reality is divided strictly between things within your control (judgments, intentions, reactions) and things outside your control (health, fame, plagues, imperial betrayal). By mastering your internal monologue (the Hegemonikon), you become invulnerable to circumstance.',
@@ -1302,7 +1313,8 @@ export const CURATED_BOOKS: BookSummary[] = [
       bgGradient: 'from-[#1C1315] via-[#100A0B] to-[#070405]',
       accentColor: '#F43F5E',
       motif: 'The Flow of Water & Strategic Bamboo Slip',
-      tagline: 'Military tactics are like unto water; for water in its natural course runs away from high places and hastens downwards.'
+      tagline: 'Military tactics are like unto water; for water in its natural course runs away from high places and hastens downwards.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/4849549-L.jpg'
     },
     spark: {
       executiveThesis: 'War is a matter of vital importance to the state; a province of life or death; a road to survival or ruin. Sun Tzu’s profound contrarian doctrine is that supreme excellence lies in subduing the adversary without fighting. Victory is achieved prior to battle through meticulous intelligence, psychological deception, positioning (Xing), and exploiting dynamic situational momentum (Shih).',
@@ -1422,7 +1434,8 @@ export const CURATED_BOOKS: BookSummary[] = [
       bgGradient: 'from-[#121824] via-[#0A0D15] to-[#05070B]',
       accentColor: '#0EA5E9',
       motif: 'The Ruptured Epistemic Grid',
-      tagline: 'Scientific progress is not cumulative; it is a succession of peaceful interludes punctuated by intellectually violent revolutions.'
+      tagline: 'Scientific progress is not cumulative; it is a succession of peaceful interludes punctuated by intellectually violent revolutions.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/6566386-L.jpg'
     },
     spark: {
       executiveThesis: 'Scientific progress does not advance by steady, cumulative accretion of facts. Instead, scientific fields operate under a dominant "Paradigm"—a shared set of assumptions, methods, and exemplars (Normal Science). Over time, unexplainable anomalies accumulate. The community attempts to force-fit these into the old paradigm until a crisis erupts, resulting in a revolutionary "Paradigm Shift" that fundamentally rewrites reality.',
@@ -1541,7 +1554,8 @@ export const CURATED_BOOKS: BookSummary[] = [
       bgGradient: 'from-[#1B1713] via-[#0E0C09] to-[#070504]',
       accentColor: '#EAB308',
       motif: 'The Desert Dune & Cyclical Empire Arc',
-      tagline: 'Civilizations, like individuals, have natural lifespans of birth, zenith, luxury, and inevitable collapse.'
+      tagline: 'Civilizations, like individuals, have natural lifespans of birth, zenith, luxury, and inevitable collapse.',
+      coverUrl: 'https://covers.openlibrary.org/b/id/440215-L.jpg'
     },
     spark: {
       executiveThesis: 'Four centuries before the European Enlightenment, Ibn Khaldun discovered that human civilizations (Umran) operate according to natural scientific laws. The rise and fall of empires is driven by the dynamic tension between nomadic desert vigor and sedentary urban luxury. The supreme catalyst is Asabiyyah (عصبية)—social solidarity, mutual trust, and shared purpose. When Asabiyyah is high, a band of desert nomads can topple an empire; when luxury and excessive taxation rot Asabiyyah, the empire collapses within three to four generations.',

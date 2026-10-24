@@ -3,6 +3,7 @@ import { BookSummary, SynthesisDepth } from '../types';
 import { X, Zap, Clock, ShieldCheck, Headphones, Share2, CheckCircle2, Circle, AlertCircle, Quote, Scroll, GraduationCap, Globe, ArrowLeft, ArrowRight, BookOpen } from 'lucide-react';
 import { MentalModelViewer } from './MentalModelViewer';
 import { QuoteCardModal } from './QuoteCardModal';
+import { fetchBookCover } from '../services/coverService';
 
 interface ReaderModalProps {
   book: BookSummary;
@@ -26,6 +27,16 @@ export const ReaderModal: React.FC<ReaderModalProps> = ({
   const [depth, setDepth] = useState<SynthesisDepth>('spark');
   const [selectedQuote, setSelectedQuote] = useState<{ quote: string; author: string } | null>(null);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const [coverUrl, setCoverUrl] = useState<string | null>(book.cover?.coverUrl || null);
+
+  useEffect(() => {
+    setCoverUrl(book.cover?.coverUrl || null);
+    if (!book.cover?.coverUrl) {
+      fetchBookCover(book.title, book.author, book.id).then(url => {
+        if (url) setCoverUrl(url);
+      });
+    }
+  }, [book]);
 
   // Keyboard Navigation: ArrowLeft for previous, ArrowRight for next, Escape for close
   useEffect(() => {
@@ -171,44 +182,63 @@ export const ReaderModal: React.FC<ReaderModalProps> = ({
         {/* Scrollable Reader Body */}
         <div className="p-6 sm:p-12 overflow-y-auto max-h-[85vh]">
           
-          {/* Book Header Banner */}
-          <div className="mb-8 pb-8 border-b border-black/[0.08] dark:border-white/10">
-            <div className="flex items-center gap-2 text-xs uppercase tracking-widest font-mono text-[#C59B37] font-bold">
-              <span>UNOFFICIAL CRITICAL SYNTHESIS</span>
-              <span>•</span>
-              <span>{book.year}</span>
-              {book.textType === 'ancient' && (
-                <span className="ml-2 text-amber-700 dark:text-amber-400 flex items-center gap-1 font-sans font-bold">
-                  <Scroll className="w-3.5 h-3.5" /> Ancient Classic
-                </span>
-              )}
-              {book.textType === 'academic' && (
-                <span className="ml-2 text-sky-700 dark:text-sky-400 flex items-center gap-1 font-sans font-bold">
-                  <GraduationCap className="w-3.5 h-3.5" /> Academic Treatise
-                </span>
-              )}
-            </div>
+          {/* Book Header Banner with 3D Cover */}
+          <div className="mb-8 pb-8 border-b border-black/[0.08] dark:border-white/10 flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
+            
+            {/* 3D Realistic Hardcover Presentation */}
+            {coverUrl && (
+              <div className="shrink-0 relative w-32 sm:w-40 aspect-[2/3] rounded-r-md rounded-l-xs shadow-2xl overflow-hidden border border-black/20 dark:border-white/10 bg-stone-950">
+                <img
+                  src={coverUrl}
+                  alt={book.title}
+                  className="w-full h-full object-cover"
+                />
+                {/* 3D Spine Crease */}
+                <div className="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-r from-black/70 via-black/25 to-transparent pointer-events-none" />
+                {/* Hardcover Gloss Reflection */}
+                <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/15 to-transparent pointer-events-none" />
+              </div>
+            )}
 
-            <h1 className="font-serif text-3xl sm:text-5xl font-black text-gray-900 dark:text-white mt-2 leading-tight">
-              {book.title}
-            </h1>
-            <p className="font-serif text-lg sm:text-xl text-gray-600 dark:text-gray-300 italic mt-2">
-              {book.subtitle}
-            </p>
-            <div className="flex items-center gap-4 mt-4 text-sm text-gray-500 dark:text-gray-400 font-medium">
-              <span className="text-gray-900 dark:text-white font-semibold">By {book.author}</span>
-              <span>•</span>
-              <span className="px-2.5 py-0.5 rounded-full bg-black/5 dark:bg-white/5 text-gray-700 dark:text-gray-300 text-xs">
-                {depth === 'spark' ? book.readTime.spark : depth === 'core' ? book.readTime.core : book.readTime.masterclass} read
-              </span>
-              {book.originalLanguage && (
-                <>
-                  <span>•</span>
-                  <span className="font-mono text-xs text-[#C59B37]">
-                    Original: {book.originalLanguage}
+            {/* Title & Metadata */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 text-xs uppercase tracking-widest font-mono text-[#C59B37] font-bold">
+                <span>UNOFFICIAL CRITICAL SYNTHESIS</span>
+                <span>•</span>
+                <span>{book.year}</span>
+                {book.textType === 'ancient' && (
+                  <span className="ml-2 text-amber-700 dark:text-amber-400 flex items-center gap-1 font-sans font-bold">
+                    <Scroll className="w-3.5 h-3.5" /> Ancient Classic
                   </span>
-                </>
-              )}
+                )}
+                {book.textType === 'academic' && (
+                  <span className="ml-2 text-sky-700 dark:text-sky-400 flex items-center gap-1 font-sans font-bold">
+                    <GraduationCap className="w-3.5 h-3.5" /> Academic Treatise
+                  </span>
+                )}
+              </div>
+
+              <h1 className="font-serif text-3xl sm:text-5xl font-black text-gray-900 dark:text-white mt-2 leading-tight">
+                {book.title}
+              </h1>
+              <p className="font-serif text-lg sm:text-xl text-gray-600 dark:text-gray-300 italic mt-2">
+                {book.subtitle}
+              </p>
+              <div className="flex flex-wrap items-center gap-4 mt-4 text-sm text-gray-500 dark:text-gray-400 font-medium">
+                <span className="text-gray-900 dark:text-white font-semibold">By {book.author}</span>
+                <span>•</span>
+                <span className="px-2.5 py-0.5 rounded-full bg-black/5 dark:bg-white/5 text-gray-700 dark:text-gray-300 text-xs">
+                  {depth === 'spark' ? book.readTime.spark : depth === 'core' ? book.readTime.core : book.readTime.masterclass} read
+                </span>
+                {book.originalLanguage && (
+                  <>
+                    <span>•</span>
+                    <span className="font-mono text-xs text-[#C59B37]">
+                      Original: {book.originalLanguage}
+                    </span>
+                  </>
+                )}
+              </div>
             </div>
           </div>
 
