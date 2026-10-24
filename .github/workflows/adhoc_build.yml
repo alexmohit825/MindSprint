@@ -1,24 +1,51 @@
-name: MindSprint Ad-Hoc OTA Wireless Build
+name: MindSprint Ad-Hoc Direct IPA Pipeline
 
 on:
-  workflow_dispatch:
   push:
     branches: [ master, main ]
-    paths:
-      - 'ios/**'
-      - '.github/workflows/adhoc_build.yml'
+  workflow_dispatch:
+    inputs:
+      bundle_id:
+        description: 'Target Bundle ID for Ad-Hoc Delivery'
+        required: false
+        default: 'com.AlexMohit.MindSprint'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
 
 jobs:
-  build-adhoc:
+  build-and-export:
+    name: Compile, Sign & Export MindSprint Ad-Hoc IPA
     runs-on: macos-15
+    timeout-minutes: 30
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Select Xcode 16+
-        run: sudo xcode-select -s /Applications/Xcode_16.2.app
+      - name: Select Xcode (iOS SDK)
+        run: |
+          sudo xcode-select -s /Applications/Xcode_16.2.app || sudo xcode-select -s /Applications/Xcode_16.app || sudo xcode-select -s /Applications/Xcode.app
+          xcodebuild -version
+          swift --version
 
-      - name: Setup App Store Connect API Key
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Native Xcode Project with Dynamic Build Number
+        run: |
+          BUILD_NUM=$(( ${{ github.run_number }} + 1 ))
+          TARGET_BUNDLE="${{ github.event.inputs.bundle_id || 'com.AlexMohit.MindSprint' }}"
+          echo "Setting CURRENT_PROJECT_VERSION to $BUILD_NUM and PRODUCT_BUNDLE_IDENTIFIER to $TARGET_BUNDLE"
+          sed -i '' "s/CURRENT_PROJECT_VERSION: .*/CURRENT_PROJECT_VERSION: \"$BUILD_NUM\"/" project.yml
+          sed -i '' "s/PRODUCT_BUNDLE_IDENTIFIER: .*/PRODUCT_BUNDLE_IDENTIFIER: $TARGET_BUNDLE/" project.yml
+          xcodegen generate
+
+      - name: Configure App Store Connect API Credentials
         env:
           APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
         run: |
@@ -26,15 +53,62 @@ jobs:
           echo "$APP_STORE_CONNECT_PRIVATE_KEY" > ~/.appstoreconnect/private_keys/AuthKey_38F6WA87DU.p8
           chmod 600 ~/.appstoreconnect/private_keys/AuthKey_38F6WA87DU.p8
 
-      - name: Build and Package Ad-Hoc IPA
+      - name: Compile & Export Ad-Hoc IPA for Alex's iPhone (00008150-001E7C892200401C)
         run: |
-          echo "Building MindSprint for Alex's iPhone (UDID: 00008150-001E7C892200401C)..."
-          mkdir -p build/artifacts
-          # Simulated build packaging step for repository
-          echo "Ad-Hoc Package Ready" > build/artifacts/MindSprint-build-summary.txt
+          mkdir -p build/archive build/output
+          xcodebuild archive \
+            -project MindSprint.xcodeproj \
+            -scheme MindSprint \
+            -destination 'generic/platform=iOS' \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath build/archive/MindSprint.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO
 
-      - name: Upload IPA Artifact
+          cat > build/archive_entitlements.plist << 'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>application-identifier</key>
+              <string>523MJL63MC.com.AlexMohit.MindSprint</string>
+              <key>com.apple.developer.team-identifier</key>
+              <string>523MJL63MC</string>
+          </dict>
+          </plist>
+          EOF
+
+          codesign --force --sign - --entitlements build/archive_entitlements.plist build/archive/MindSprint.xcarchive/Products/Applications/MindSprint.app
+          echo "Verifying Embedded Archive Entitlements (Anti-Leap 7 assertion):"
+          codesign -d --entitlements :- build/archive/MindSprint.xcarchive/Products/Applications/MindSprint.app
+
+          xcodebuild -exportArchive \
+            -archivePath build/archive/MindSprint.xcarchive \
+            -exportOptionsPlist ExportOptions-AdHoc.plist \
+            -exportPath build/output \
+            -allowProvisioningUpdates \
+            -authenticationKeyID 38F6WA87DU \
+            -authenticationKeyIssuerID 73c7355a-beef-4d79-919d-c3d7dec7747a \
+            -authenticationKeyPath ~/.appstoreconnect/private_keys/AuthKey_38F6WA87DU.p8
+
+          ls -la build/output
+          echo "Exported MindSprint.ipa Ad-Hoc build successfully!"
+
+      - name: Upload MindSprint Ad-Hoc IPA Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: MindSprint-AdHoc
-          path: build/artifacts/
+          name: MindSprint-AdHoc-IPA
+          path: build/output/MindSprint.ipa
+          retention-days: 14
+
+      - name: Release Ad-Hoc IPA to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        if: success()
+        with:
+          tag_name: v1.0.0-adhoc
+          name: "MindSprint Ad-Hoc Wireless OTA v1.0.0"
+          body: "Direct 1-Tap Safari OTA binary for registered iPhone (UDID: 00008150-001E7C892200401C). Valid for 365 days."
+          files: build/output/MindSprint.ipa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
